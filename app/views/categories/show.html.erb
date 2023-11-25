@@ -1,0 +1,9 @@
+<% provide(:title, 'Skill') %>
+
+<% @item.each do |item| %>
+    <%= item.item_name%>
+    <%= item.study_time%>
+    <%end%>
+    
+
+<%= button_to "項目を追加する", {controller: 'items', action: 'new'}, {method: :get} %>

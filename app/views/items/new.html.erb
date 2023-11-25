@@ -1,0 +1,19 @@
+<% provide(:title, 'Skill') %>
+<h1>{カテゴリー名}に項目を追加</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: @item, data: { turbo_confirm: 'Are you sure?' }) do |f| %>
+
+      <%= f.hidden_field :category_id %>
+
+      <%= f.label :項目名 %>
+      <%= f.text_field :item_name, class: 'form-control' %>
+
+      <%= f.label :学習時間 %>
+      <%= f.text_field :study_time, class: 'form-control' %>
+
+      <%= f.submit "追加する", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

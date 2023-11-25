@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_name: MyString
+  study_time: 1
+  item_id: 1
+  user_id: 1
+  category: one
+
+two:
+  item_name: MyString
+  study_time: 1
+  item_id: 1
+  user_id: 1
+  category: two
