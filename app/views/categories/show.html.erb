@@ -3,7 +3,16 @@
 <% @item.each do |item| %>
     <%= item.item_name%>
     <%= item.study_time%>
+
     <%end%>
     
 
-<%= button_to "項目を追加する", {controller: 'items', action: 'new'}, {method: :get} %>
+<%= button_to "項目を追加する", {controller: 'items', action: 'new'}, {method: :get, params: {category_name: 'backend', category_id: 1} } %>
+
+<%= form_with(model: @category) do |f| %>
+
+    <%= f.hidden_field :category_id %>
+    <%= f.hidden_field :category_name %>
+
+    <%= f.submit "追加する", class: "btn btn-primary" %>
+  <% end %>
