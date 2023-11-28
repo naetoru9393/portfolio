@@ -1,18 +1,25 @@
 <% provide(:title, 'Skill') %>
 
-<% @item.each do |item| %>
-    <%= item.item_name%>
-    <%= item.study_time%>
+<h1>バックエンド</h1>
 
-    <%end%>
+<% @items.each do |item|%>
     
+<%= form_with(model: @item) do |i| %>
+    <%= item.item_name %>
+    <%= i.select :study_time, [["10", "10"], ["20", "20"]], include_blank: "選択して下さい" %>
 
-<%= button_to "項目を追加する", {controller: 'items', action: 'new'}, {method: :get, params: {category_name: 'backend', category_id: 1} } %>
+    <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
+    <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>
+
+
+    <%= button_to '削除する', items_path(id:item.item_id) %>
+<% end %>
+
+<% end %>
 
 <%= form_with(model: @category) do |f| %>
-
-    <%= f.hidden_field :category_id %>
-    <%= f.hidden_field :category_name %>
+    <%= f.hidden_field :category_id, value: "1" %>
+    <%= f.hidden_field :category_name, value: "backend" %>
 
     <%= f.submit "追加する", class: "btn btn-primary" %>
-  <% end %>
+<% end %>

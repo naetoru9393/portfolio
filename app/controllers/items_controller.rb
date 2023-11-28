@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
 
   def new
-    @category = Category.find(category_params)
-    @category.save
+    @category_id = params[:category_id]
     @item = Item.new
   end
 
   def create
+      @category_id = params[:category_id]
       @item = Item.new(item_params)
       @item.save
     end
@@ -16,13 +16,16 @@ class ItemsController < ApplicationController
       @item.update(user_params)
     end
 
+    def delete
+      @item = Item.find(item_params)
+      @item.destroy
+      redirect_to controller: :categories, action: :show
+  end
+
   private
 
     def item_params
-      params.require(:item).permit(:item_name, :study_time, :category_id)
-    end
-
-    def category_params
-      params.require(:category).permit(:category_name, :category_id)
+      params.require(:item).permit(:item_name, :study_time,
+                                   :category_id, :item_id)
     end
   end
