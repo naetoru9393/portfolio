@@ -3,10 +3,14 @@
     <%= link_to "sample app", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
               <li>
                 <%= link_to "ログアウト", logout_path,
                                        data: { "turbo-method": :delete } %>
               </li>
+        <% else %>
+          <li><%= link_to "ログイン", login_path %></li>
+        <% end %>
       </ul>
     </nav>
   </div>
