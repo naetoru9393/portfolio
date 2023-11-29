@@ -10,13 +10,17 @@ class ItemsController < ApplicationController
       @item = Item.new(item_params)
       @item.save
     end
+
+    def edit
+      @item = Item.find(item_params)
+    end
   
     def update
       @item = Item.find(item_params)
-      @item.update(user_params)
+      @item.update(item_params)
     end
 
-    def delete
+    def destroy
       @item = Item.find(item_params)
       @item.destroy
       redirect_to controller: :categories, action: :show
@@ -29,3 +33,13 @@ class ItemsController < ApplicationController
                                    :category_id, :item_id)
     end
   end
+
+   # beforeフィルタ
+
+    # ログイン済みユーザーかどうか確認
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url, status: :see_other
+      end
+end

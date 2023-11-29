@@ -3,14 +3,10 @@ class CategoriesController < ApplicationController
     def show
         @category = Category.new
         @items = Item.all
-        @item = Item.new
-      
-    end
-
-    def new
-        @category = Category.new
+        @item = Item.all
         @item = Item.new
     end
+    
     
     def create
         @category = Category.new(category_params)
