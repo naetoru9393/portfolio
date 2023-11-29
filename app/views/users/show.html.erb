@@ -10,7 +10,7 @@
         <h1>自己紹介</h1>
         <%= @user.introduction%>
         <%= button_to "自己紹介を編集する", {controller: 'users', action: 'edit'}, {method: :get} %>
-        <%= button_to "編集する", {controller: 'categories', action: 'show'}, {method: :get} %>
+        <%= button_to "編集する", {controller: 'categories', action: 'index'}, {method: :get} %>
     </section>
   </aside>
 </div>

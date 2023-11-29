@@ -16,14 +16,14 @@ class ItemsController < ApplicationController
     end
   
     def update
-      @item = Item.find(item_params)
+      @item = Item.find(params[:item_id ])
       @item.update(item_params)
     end
 
     def destroy
       @item = Item.find(item_params)
       @item.destroy
-      redirect_to controller: :categories, action: :show
+      redirect_to controller: :categories, action: :index
   end
 
   private
