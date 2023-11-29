@@ -11,7 +11,7 @@
 
 <% @items.each do |item|%>
     
-<%= form_with model:Item.first do |i| %>
+<%= form_with model: item do |i| %>
     <%= item.item_name %>
     <%= item.study_time %>
     <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>

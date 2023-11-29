@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     end
   
     def update
-      @item = Item.find(params[:item_id ])
+      @item = Item.find(item_params)
       @item.update(item_params)
     end
 
@@ -29,7 +29,6 @@ class ItemsController < ApplicationController
   private
 
     def item_params
-      params.require(:item).permit(:item_name, :study_time,
-                                   :category_id, :item_id)
+      params.require(:item).permit(:item_name, :study_time, :category_id, :id)
     end
   end

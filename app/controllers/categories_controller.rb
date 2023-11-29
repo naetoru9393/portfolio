@@ -3,8 +3,6 @@ class CategoriesController < ApplicationController
     def index
         @category = Category.new
         @items = Item.all
-        @item = Item.all
-        @item = Item.new
     end
     
     
@@ -21,7 +19,7 @@ class CategoriesController < ApplicationController
     end
 
     def item_params
-    params.require(:item).permit(:item_name, :study_time, :category_id)
+      params.require(:item).permit(:item_name, :study_time, :category_id, :id)
     end
 
 end
