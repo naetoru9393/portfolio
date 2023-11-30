@@ -12,13 +12,13 @@ class CategoriesController < ApplicationController
     def create
         @category = Category.new(category_params)
         @category.save
-        redirect_to new_item_path(category_id: @category.category_id)
+        redirect_to new_item_path(id: @category.id)
     end
 
     private
 
     def category_params
-      params.require(:category).permit(:category_name, :category_id)
+      params.require(:category).permit(:category_name, :id)
     end
 
 end

@@ -2,35 +2,9 @@
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
 
- <%= select_tag :id, options_for_select([["1", 1], ["2", 2], ["3", 3]])%>
-
- <select id="myselectbox" onchange="myfunc()">
-        <option value="" selected>Please select...</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        <option>11</option>
-        <option>12</option></select>
- 
-    <script>
-        function myfunc() {
-        
-            var index = document.getElementById("myselectbox").selectedIndex;
-            
-            console.log(index);
-        }
-    </script>
-
   <h1>バックエンド</h1>
   <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :category_id, value: "1" %>
+    <%= f.hidden_field :id, value: "1" %>
     <%= f.hidden_field :category_name, value: "backend" %>
     <%= f.submit "追加する", class: "btn btn-primary" %>
   <% end %>
@@ -49,7 +23,7 @@
 
   <h1>フロントエンド</h1>
   <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :category_id, value: "2" %>
+    <%= f.hidden_field :id, value: "2" %>
     <%= f.hidden_field :category_name, value: "frontend" %>
     <%= f.submit "追加する", class: "btn btn-primary" %>
   <% end %>
@@ -68,7 +42,7 @@
 
   <h1>インフラ</h1>
   <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :category_id, value: "3" %>
+    <%= f.hidden_field :id, value: "3" %>
     <%= f.hidden_field :category_name, value: "infra" %>
     <%= f.submit "追加する", class: "btn btn-primary" %>
   <% end %>

@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
 
   def new
-    @category_id = params[:category_id]
+    @category_id = params[:id]
     @item = Item.new
   end
 
   def create
-      @category_id = params[:category_id]
+      @category_id = params[:id]
       @item = Item.new(item_params)
       @item.save
       redirect_to controller: :categories, action: :index
