@@ -2,7 +2,10 @@ class CategoriesController < ApplicationController
 
     def index
         @category = Category.new
-        @items = Item.all
+        @month = Item.where(created_at: params[:id])
+        @backends = Item.where(category_id: 1)
+        @frontends = Item.where(category_id: 2)
+        @infrastructures = Item.where(category_id: 3)
     end
     
     
@@ -16,10 +19,6 @@ class CategoriesController < ApplicationController
 
     def category_params
       params.require(:category).permit(:category_name, :category_id)
-    end
-
-    def item_params
-      params.require(:item).permit(:item_name, :study_time, :category_id, :id)
     end
 
 end

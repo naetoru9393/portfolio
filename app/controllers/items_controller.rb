@@ -9,19 +9,16 @@ class ItemsController < ApplicationController
       @category_id = params[:category_id]
       @item = Item.new(item_params)
       @item.save
-    end
-
-    def edit
-      @item = Item.find(item_params)
+      redirect_to controller: :categories, action: :index
     end
   
     def update
-      @item = Item.find(item_params)
+      @item = Item.find(params[:id])
       @item.update(item_params)
     end
 
     def destroy
-      @item = Item.find(item_params)
+      @item = Item.find(params[:id])
       @item.destroy
       redirect_to controller: :categories, action: :index
   end
