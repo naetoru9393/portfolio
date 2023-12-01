@@ -9,6 +9,7 @@
       <%= f.text_area :introduction, class: 'form-control' %>
 
       <%= f.label :アバター画像 %>
+      <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
 
       <%= f.submit "自己紹介を確定する", class: "btn btn-primary" %>
     <% end %>

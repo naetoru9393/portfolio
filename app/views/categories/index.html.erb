@@ -9,17 +9,17 @@
     <%= f.submit "追加する", class: "btn btn-primary" %>
   <% end %>
 
- <% @backends.each do |item|%>
+  <% @backends.each do |item|%>
     
-  <%= form_with model: item, method: :patch do |i| %>
-    <%= item.item_name %>
-    <%= item.study_time %>
-    <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
-    <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
-    <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>   
-  <% end %>
-
- <% end %>
+    <%= form_with model: item, method: :patch do |i| %>
+      <%= item.item_name %>
+      <%= item.study_time %>
+      <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
+      <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
+      <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>   
+    <% end %>
+  
+   <% end %>
 
   <h1>フロントエンド</h1>
   <%= form_with(model: @category) do |f| %>

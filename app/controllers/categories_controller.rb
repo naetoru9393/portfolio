@@ -2,7 +2,6 @@ class CategoriesController < ApplicationController
 
     def index
         @category = Category.new
-        @month = Item.where(created_at: params[:id])
         @backends = Item.where(category_id: 1)
         @frontends = Item.where(category_id: 2)
         @infrastructures = Item.where(category_id: 3)
