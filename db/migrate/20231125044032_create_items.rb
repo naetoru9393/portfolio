@@ -6,7 +6,6 @@ class CreateItems < ActiveRecord::Migration[7.1]
       t.integer :item_id
       t.integer :user_id
       t.integer :category_id
-      t.integer :item_id
 
       t.timestamps
     end

@@ -11,54 +11,15 @@
 
   <% @backends.each do |item|%>
     
-    <%= form_with model: item, method: :patch do |i| %>
+    <%= form_with model: item do |i| %>
       <%= item.item_name %>
       <%= item.study_time %>
       <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
       <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
-      <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>   
+    <% end %>
+
+    <%= form_with model: item, method: :delete do |i| %>
+      <%= i.submit "削除する", frommethod: :delete, class: "btn btn-primary" %> 
     <% end %>
   
    <% end %>
-
-  <h1>フロントエンド</h1>
-  <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :id, value: "2" %>
-    <%= f.hidden_field :category_name, value: "frontend" %>
-    <%= f.submit "追加する", class: "btn btn-primary" %>
-  <% end %>
-
- <% @frontends.each do |item|%>
-    
-  <%= form_with model: item, method: :patch do |i| %>
-    <%= item.item_name %>
-    <%= item.study_time %>
-    <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
-    <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
-    <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>   
-  <% end %>
-
- <% end %>
-
-  <h1>インフラ</h1>
-  <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :id, value: "3" %>
-    <%= f.hidden_field :category_name, value: "infra" %>
-    <%= f.submit "追加する", class: "btn btn-primary" %>
-  <% end %>
-
- <% @infrastructures.each do |item|%>
-    
-  <%= form_with model: item, method: :patch do |i| %>
-    <%= item.item_name %>
-    <%= item.study_time %>
-    <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
-    <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
-    <%= i.submit "削除する", formmethod: :delete, class: "btn btn-primary" %>   
-  <% end %>
-
-  <% end %>
-
- </div>
-
-</div>
