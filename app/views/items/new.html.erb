@@ -1,11 +1,12 @@
 <% provide(:title, 'Skill') %>
 <h1>{カテゴリー名}に項目を追加</h1>
 
+<%= @month %>
+
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @item) do |f| %>
 
-      <%= f.hidden_field :month, value:  %>
       <%= f.hidden_field :category_id, value: @category_id %>
 
       <%= f.label :項目名 %>
