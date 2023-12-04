@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
 
   def new
     @category_id = params[:id]
+    @month = params[:id]
     @item = Item.new
   end
 
