@@ -5,8 +5,9 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @item) do |f| %>
 
-      <%= f.hidden_field :month, value:  %>
       <%= f.hidden_field :category_id, value: @category_id %>
+      <%= f.hidden_field :user_id, value: @current_user %>
+      <%= f.hidden_field :month, value: @month %>
 
       <%= f.label :項目名 %>
       <%= f.text_field :item_name, class: 'form-control' %>
