@@ -5,9 +5,10 @@ class CategoriesController < ApplicationController
         @category = Category.new
 
         if params[:month] == nil
-            @backends = Item.where(category_id: 1).where(month: @month)
-            @frontends = Item.where(category_id: 2).where(month: @month)
-            @infrastructures = Item.where(category_id: 3).where(month: @month)
+            @month = @months
+            @backends = Item.where(category_id: 1).where(month: @months)
+            @frontends = Item.where(category_id: 2).where(month: @months)
+            @infrastructures = Item.where(category_id: 3).where(month: @months)
             else
             @month = params[:month]
             @backends = Item.where(category_id: 1).where(month: @month)
