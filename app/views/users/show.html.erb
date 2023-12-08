@@ -3,7 +3,6 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-      
         <%= @user.name %>
       </h1>
       <h1>
@@ -13,4 +12,37 @@
         <%= button_to "編集する", {controller: 'categories', action: 'index'}, {method: :get} %>
     </section>
   </aside>
+
+<canvas id="myChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['先々月', '先月', '今月'],
+        datasets: [{
+            label: 'バックエンド',
+            data: ['<%= @back_two_manths_ago %>', '<%= @back_last_manth %>', '<%= @back_this_manth %>'],
+            backgroundColor: ['#FFC7C2'],
+        },{
+          label: 'フロントエンド',
+            data: ['<%= @front_two_manths_ago %>', '<%= @front_last_manth %>', '<%=  @front_this_manth  %>'],
+            backgroundColor: ['#FCD19c'],
+        },{
+          label: 'インフラ',
+            data: ['<%= @infra_two_manths_ago %>', '<%= @infra_last_manth %>', '<%=  @infra_this_manth  %>'],
+            backgroundColor: ['#FFE8A3'],
+        }],
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
 </div>

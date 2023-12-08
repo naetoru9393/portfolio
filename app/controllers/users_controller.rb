@@ -4,6 +4,19 @@ class UsersController < ApplicationController
 
     def show
       @user = User.find(params[:id])
+      @month = Date.today.month
+      @user_item = Item.where(params[:id])
+      @back_this_manth = @user_item.where(category_id:1).where(month:@month).sum(:study_time)
+      @back_last_manth = @user_item.where(category_id:1).where(month:@month-1).sum(:study_time)
+      @back_two_manths_ago = @user_item.where(category_id:1).where(month:@month-2).sum(:study_time)
+
+      @front_this_manth = @user_item.where(category_id:2).where(month:@month).sum(:study_time)
+      @front_last_manth = @user_item.where(category_id:2).where(month:@month-1).sum(:study_time)
+      @front_two_manths_ago = @user_item.where(category_id:2).where(month:@month-2).sum(:study_time)
+
+      @infra_this_manth = @user_item.where(category_id:3).where(month:@month).sum(:study_time)
+      @infra_last_manth = @user_item.where(category_id:3).where(month:@month-1).sum(:study_time)
+      @infra_two_manths_ago = @user_item.where(category_id:3).where(month:@month-2).sum(:study_time)
     end
   
     def new
