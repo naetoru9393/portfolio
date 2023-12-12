@@ -2,14 +2,15 @@ class ItemsController < ApplicationController
 
   def new
     @category_id = params[:id]
+    @month = params[:month]
     @current_user = current_user.id
-    @month = Date.today.month
     @item = Item.new
     session[:previous_url] = request.referer
   end
 
   def create
       @category_id = params[:id]
+      @month = params[:month]
       @item = Item.new(item_params)
       @item.save
       redirect_to session[:previous_url]

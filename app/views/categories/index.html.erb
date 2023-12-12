@@ -2,9 +2,9 @@
 
 <select id="number">
 <option><%= @month %></option>
-<option><%= @months %></option>
-<option><%= @months -1 %></option>
-<option><%= @months -2 %></option>
+<option><%= @this_month %></option>
+<option><%= @this_month -1 %></option>
+<option><%= @this_month -2 %></option>
 </select>
 
 <div class="row">
@@ -17,12 +17,12 @@
     <%= f.submit "追加する", class: "btn btn-primary" %>
   <% end %>
 
+  <div style="width:300px;height:150px;overflow:auto;">
   <% @backends.each do |item|%>
     
     <%= form_with model: item do |i| %>
       <%= item.item_name %>
-      <%= item.study_time %>
-      <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
+      <%= i.number_field :study_time, autocomplete: "off" %>
       <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
     <% end %>
 
@@ -31,50 +31,9 @@
     <% end %>
   
    <% end %>
+   </div>
 
-   <h1>フロントエンド</h1>
-   <%= form_with(model: @category) do |f| %>
-     <%= f.hidden_field :id, value: "2" %>
-     <%= f.hidden_field :category_name, value: "frontend" %>
-     <%= f.submit "追加する", class: "btn btn-primary" %>
-   <% end %>
- 
-  <% @frontends.each do |item|%>
-     
-   <%= form_with model: item, method: :patch do |i| %>
-     <%= item.item_name %>
-     <%= item.study_time %>
-     <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
-     <%= i.submit "学習時間を保存する", class: "btn btn-primary" %> 
-   <% end %>
- 
-   <%= form_with model: item, method: :delete do |i| %>
-     <%= i.submit "削除する", frommethod: :delete, class: "btn btn-primary" %> 
-   <% end %>
- 
-  <% end %>
- 
-   <h1>インフラ</h1>
-   <%= form_with(model: @category) do |f| %>
-     <%= f.hidden_field :id, value: "3" %>
-     <%= f.hidden_field :category_name, value: "infra" %>
-     <%= f.submit "追加する", class: "btn btn-primary" %>
-   <% end %>
- 
-  <% @infrastructures.each do |item|%>
-     
-   <%= form_with model: item, method: :patch do |i| %>
-     <%= item.item_name %>
-     <%= item.study_time %>
-     <%= i.select :study_time, [["10", "10"], ["20", "20"]] %>
-     <%= i.submit "学習時間を保存する", class: "btn btn-primary" %> 
-   <% end %>
- 
-   <%= form_with model: item, method: :delete do |i| %>
-     <%= i.submit "削除する", frommethod: :delete, class: "btn btn-primary" %> 
-   <% end %>
- 
-   <% end %>
+   
  
   </div>
  

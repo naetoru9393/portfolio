@@ -1,14 +1,14 @@
 class CategoriesController < ApplicationController
 
     def index
-        @months = Date.today.month
+        @this_month = Date.today.month
         @category = Category.new
 
         if params[:month] == nil
-            @month = @months
-            @backends = Item.where(category_id: 1).where(month: @months)
-            @frontends = Item.where(category_id: 2).where(month: @months)
-            @infrastructures = Item.where(category_id: 3).where(month: @months)
+            @month = @this_month
+            @backends = Item.where(category_id: 1).where(month: @month)
+            @frontends = Item.where(category_id: 2).where(month: @month)
+            @infrastructures = Item.where(category_id: 3).where(month: @month)
             else
             @month = params[:month]
             @backends = Item.where(category_id: 1).where(month: @month)
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
     def create
         @category = Category.new(category_params)
         @category.save
-        redirect_to new_item_path(id: @category.id)
+        redirect_to new_item_path(month: @month, id: @category.id)
     end
 
     private
