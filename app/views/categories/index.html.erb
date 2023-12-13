@@ -14,7 +14,7 @@
   <%= form_with(model: @category) do |f| %>
     <%= f.hidden_field :id, value: "1" %>
     <%= f.hidden_field :category_name, value: "backend" %>
-    <%= f.submit "追加する", class: "btn btn-primary" %>
+    <%= f.submit "追加する", class: "btn btn-primary", id: "btn_submit" %>
   <% end %>
 
   <div style="width:300px;height:150px;overflow:auto;">
@@ -33,13 +33,13 @@
    <% end %>
    </div>
 
-   
- 
   </div>
  
  </div>
 
 <script>
+let text = document.getElementById('number');
+text.addEventListener('change', inputChange);
 
 function inputChange(event){
   const selectedCategoryId = this.value;
@@ -47,7 +47,13 @@ function inputChange(event){
   window.location.href = '/categories/?month=' + selectedCategoryId;
 }
 
-let text = document.getElementById('number');
-text.addEventListener('change', inputChange);
-        
+let btn = document.getElementById("btn_submit")
+btn.addEventListener("click", onClick);
+
+function onClick(event){
+  const selectedCategoryId = number.value;
+  console.log(selectedCategoryId)
+  location.href = '/categories/?month=' + selectedCategoryId;
+}
+
 </script>
