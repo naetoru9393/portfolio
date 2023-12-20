@@ -1,19 +1,20 @@
 <% provide(:title, "Log in") %>
-<h1>ログイン</h1>
+<h1 calss="">ログイン</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+ 
     <%= form_with(url: login_path, scope: :session) do |f| %>
 
-      <%= f.label :メールアドレス %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.label :メールアドレス, {class: 'fill'} %>
+      <%= f.email_field :email%>
 
-      <%= f.label :パスワード %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.label :パスワード, {class: 'fill'} %>
+      <%= f.password_field :password%>
 
       <%= f.submit "ログインする", class: "btn btn-primary" %>
     <% end %>
 
-    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get} %>
+    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get, class: "btn"} %>
   </div>
-</div>
+  </div>

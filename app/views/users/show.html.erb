@@ -1,48 +1,78 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= @user.name %>
-      </h1>
-      <h1>
-        <h1>自己紹介</h1>
-        <%= @user.introduction%>
-        <%= button_to "自己紹介を編集する", {controller: 'users', action: 'edit'}, {method: :get} %>
-        <%= button_to "編集する", {controller: 'categories', action: 'index'}, {method: :get} %>
-    </section>
-  </aside>
 
-<canvas id="myChart"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['先々月', '先月', '今月'],
-        datasets: [{
-            label: 'バックエンド',
-            data: ['<%= @back_two_manths_ago %>', '<%= @back_last_manth %>', '<%= @back_this_manth %>'],
-            backgroundColor: ['#FFC7C2'],
-        },{
-          label: 'フロントエンド',
-            data: ['<%= @front_two_manths_ago %>', '<%= @front_last_manth %>', '<%=  @front_this_manth  %>'],
-            backgroundColor: ['#FCD19c'],
-        },{
-          label: 'インフラ',
-            data: ['<%= @infra_two_manths_ago %>', '<%= @infra_last_manth %>', '<%=  @infra_this_manth  %>'],
-            backgroundColor: ['#FFE8A3'],
-        }],
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
 
+<div class="container mt-3">
+  <div class="row">
+    <!-- プロフィール -->
+    <div class="col-md-4 text-center">
+      <% if @user.image.present? %>
+        <%= image_tag @user.image, class: 'icon img-fluid profile-image' %>
+      <% else %>
+        <%= image_tag 'gray-image.jpeg', class: 'icon img-fluid profile-image' %>
+      <% end %>
+      <h3 class="mt-2"><%= @user.name %></h3>
+    </div>
+    <div class="col-md-8">
+    <h1 class="text-left mb-4 underline">自己紹介</h1>
+      <% if @user.introduction.present? %>
+        <p class="text-left">
+          <% @user.introduction.scan(/.{1,30}/).each do |line| %>
+            <%= line %><br>
+          <% end %>
+        </p>
+      <% end %>
+      <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2" } %>
+    </div>
+    <!-- プロフィール終了 -->
+  </div>
+
+  <!-- 学習チャート -->
+  <div class="row mt-3">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center underline">学習チャート</h1>
+    <div class="text-center">
+      <%= link_to "編集する", user_categories_path(@user), method: :get, class: "btn btn-primary mt-3" %>
+    </div>
+    <canvas id="myChart" class="mt-3 mb-3"></canvas>
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['先々月', '先月', '今月'],
+        datasets: [
+          {
+            label: 'バックエンド',
+            data: [<%= @back_two_manths_ago %>, <%= @back_last_manth %>, <%= @back_this_manth %>],
+            backgroundColor: ['#FFC7C2'],
+          },
+          {
+            label: 'フロントエンド',
+            data: [<%= @front_two_manths_ago %>, <%= @front_last_manth %>, <%= @front_this_manth %>],
+            backgroundColor: ['#FCD19c'],
+          },
+          {
+            label: 'インフラ',
+            data: [<%= @infra_two_manths_ago %>, <%= @infra_last_manth %>, <%= @infra_this_manth %>],
+            backgroundColor: ['#FFE8A3'],
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMin: 0, // Y軸の最小値を設定
+            suggestedMax: 100, // Y軸の最大値を設定
+          }
+        }
+      }
+    });
+  });
+</script>

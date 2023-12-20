@@ -5,13 +5,40 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user) do |f| %>
 
-      <%= f.label :自己紹介文 %>
-      <%= f.text_area :introduction, class: 'form-control' %>
-
-      <%= f.label :アバター画像 %>
-      <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
+  <%= f.label :introduction, '自己紹介文', class: 'fill' %>
+  <%= f.text_area :introduction %>
+  <%= f.label :introduction, '50文字以上、200文字未満で入力してください', class: 'fill' %>
+  <% if @user.errors[:introduction].any? %>
+    <div class="error">
+      <%= @user.errors[:introduction].join(', ') %>
+    </div>
+  <% end %>
+      
+      <%= f.label :アバター画像, {class: 'fill'}  %>
+    
+      <div class="custom-file-container">
+          <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "custom-file-input", id: "custom-file-field" %>
+          <label class="custom-file-label" for="custom-file-field">画像ファイルを添付する</label>
+      </div>
 
       <%= f.submit "自己紹介を確定する", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var fileField = document.getElementById("custom-file-field");
+
+  fileField.addEventListener("change", function() {
+    var labelText = document.querySelector('.custom-file-field-label');
+    if (fileField.files.length > 0) {
+      labelText.innerHTML = fileField.files[0].name;
+    } else {
+      labelText.innerHTML = "画像ファイルを添付する";
+    }
+  });
+});
+</script>
+

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     def show
       @user = User.find(params[:id])
       @month = Date.today.month
-      @user_item = Item.where(params[:id])
+      @user_item = Item.where(user_id: @user.id)
       @back_this_manth = @user_item.where(category_id:1).where(month:@month).sum(:study_time)
       @back_last_manth = @user_item.where(category_id:1).where(month:@month-1).sum(:study_time)
       @back_two_manths_ago = @user_item.where(category_id:1).where(month:@month-2).sum(:study_time)
@@ -68,8 +68,23 @@ class UsersController < ApplicationController
       end
 
       # 正しいユーザーかどうか確認
-    def correct_user
+      def correct_user
         @user = User.find(params[:id])
-        redirect_to(root_url, status: :see_other) unless current_user?(@user)
+      
+        # セッションに保存されたユーザーIDと編集しようとしているユーザーIDが一致しない場合、ログアウトさせる
+        unless session[:user_id] == @user.id
+          reset_session
+          flash[:danger] = "Unauthorized access. Please log in again."
+          redirect_to login_url, status: :see_other
+        end
+      end
+
+      def remember
+        self.remember_token = User.new_token
+        update_attribute(:remember_digest, User.digest(remember_token))
+      end
+    
+      def forget
+        update_attribute(:remember_digest, nil)
       end
   end

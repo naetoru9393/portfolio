@@ -1,59 +1,113 @@
 <% provide(:title, 'Skill') %>
 
-<select id="number">
-<option><%= @month %></option>
-<option><%= @this_month %></option>
-<option><%= @this_month -1 %></option>
-<option><%= @this_month -2 %></option>
-</select>
+<div class="custom-select">
+  <select class="number" id="number" onchange="navigateToSelectedMonth()">
+    <option value="<%= @month %>"><%= "#{@month}月" %></option>
+    <option value="<%= @this_month %>"><%= "#{@this_month}月" %></option>
+    <option value="<%= @this_month - 1 %>"><%= "#{@this_month - 1}月" %></option>
+    <option value="<%= @this_month - 2 %>"><%= "#{@this_month - 2}月" %></option>
+  </select>
+</div>
 
-<div class="row">
- <div class="col-md-6 col-md-offset-3">
-
-  <h1>バックエンド</h1>
-  <%= form_with(model: @category) do |f| %>
-    <%= f.hidden_field :id, value: "1" %>
-    <%= f.hidden_field :category_name, value: "backend" %>
-    <%= f.submit "追加する", class: "btn btn-primary", id: "btn_submit" %>
-  <% end %>
-
-  <div style="width:300px;height:150px;overflow:auto;">
-  <% @backends.each do |item|%>
-    
-    <%= form_with model: item do |i| %>
-      <%= item.item_name %>
-      <%= i.number_field :study_time, autocomplete: "off" %>
-      <%= i.submit "学習時間を保存する", class: "btn btn-primary" %>
-    <% end %>
-
-    <%= form_with model: item, method: :delete do |i| %>
-      <%= i.submit "削除する", frommethod: :delete, class: "btn btn-primary" %> 
-    <% end %>
-  
-   <% end %>
-   </div>
-
+<!-- バックエンド -->
+<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <h1>バックエンド</h1>
+    <div style="display: flex; align-items: center;">
+      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
+        <%= f.hidden_field :id, value: "1" %>
+        <%= f.hidden_field :month, value: @month %>
+        <%= f.hidden_field :category_name, value: "backend" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
+      <% end %>
+    </div>
   </div>
- 
- </div>
 
-<script>
-let text = document.getElementById('number');
-text.addEventListener('change', inputChange);
+<div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+  <!-- 項目名と学習時間の部分 -->
+  <div style="margin-bottom: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr style="border-bottom: 1px solid #ccc;">
+        <th style="padding: 10px; width: 19%; padding-left: 65px;">項目名</th>
+        <th style="padding: 10px; padding-left: 65px;">学習時間</th>
+      </tr>
+    </table>
+  </div>
+  
+  <%= render partial: 'monthly_content', locals: { backends: @backends } %>
+  </div>
+</div>
 
-function inputChange(event){
-  const selectedCategoryId = this.value;
-  console.log(selectedCategoryId)
-  window.location.href = '/categories/?month=' + selectedCategoryId;
-}
+<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <h1>フロントエンド</h1>
+    <div style="display: flex; align-items: center;">
+      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
+        <%= f.hidden_field :id, value: "2" %>
+        <%= f.hidden_field :month, value: @month %>
+        <%= f.hidden_field :category_name, value: "backend" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
+      <% end %>
+    </div>
+  </div>
 
-let btn = document.getElementById("btn_submit")
-btn.addEventListener("click", onClick);
+<div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+  <!-- 項目名と学習時間の部分 -->
+  <div style="margin-bottom: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr style="border-bottom: 1px solid #ccc;">
+        <th style="padding: 10px; width: 19%; padding-left: 65px;;">項目名</th>
+        <th style="padding: 10px">学習時間</th>
+      </tr>
+    </table>
+  </div>
 
-function onClick(event){
-  const selectedCategoryId = number.value;
-  console.log(selectedCategoryId)
-  location.href = '/categories/?month=' + selectedCategoryId;
-}
+  <%= render partial: 'front_content', locals: { fronteds: @frontends } %>
+  </div>
+  </div>
 
+
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <h1>インフラ</h1>
+    <div style="display: flex; align-items: center;">
+      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
+        <%= f.hidden_field :id, value: "3" %>
+        <%= f.hidden_field :month, value: @month %>
+        <%= f.hidden_field :category_name, value: "backend" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+  <!-- 項目名と学習時間の部分 -->
+  <div style="margin-bottom: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr style="border-bottom: 1px solid #ccc;">
+        <th style="padding: 10px; width: 19%; padding-left: 65px;;">項目名</th>
+        <th style="padding: 10px">学習時間</th>
+      </tr>
+    </table>
+  </div>
+
+  <%= render partial: 'infra_content', locals: { infrastructures: @infrastructures } %>
+  </div>
+  </div>
+
+
+  <script>
+  function navigateToSelectedMonth() {
+    // 選択された月の値を取得
+    var selectedMonth = document.getElementById('number').value;
+
+    // 現在のURLを取得
+    var currentUrl = window.location.href;
+
+    // パラメーターの部分を置換して新しいURLを構築
+    var newUrl = currentUrl.replace(/month=\d+/, 'month=' + selectedMonth);
+
+    // 新しいURLに遷移
+    window.location.href = newUrl;
+  }
 </script>

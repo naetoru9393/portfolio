@@ -12,9 +12,54 @@ $gray-medium-light: #eaeaea;
 }
 
 /* universal */
+html{
+  min-height: 100%;
+  position: relative;
+}
 
 body {
-  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  margin-right: 100px; /* 右側の余白を追加するサイズ */
+  margin-left: 100px;
+  margin-top: 70px;
+  margin-bottom: 50px; /* Footerの高さ分を追加 */
+}
+
+/* ヘッダーの高さに合わせてナビゲーションバーの上部に余白を設定 */
+.navbar {
+  padding-top: 70px; /* ヘッダーの高さに合わせて適切な値に変更 */
+}
+
+/* .containerにbox-sizingを設定 */
+.container {
+  width: 100%;
+  padding-top: 70px; /* ナビゲーションバーの高さに合わせて適切な値に変更 */
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+}
+
+.custom-container {
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+
+/* ナビゲーションバーからのはみ出しを防ぐために、nav要素にもbox-sizingを設定 */
+.navbar nav {
+  box-sizing: border-box;
+}
+
+/* ナビゲーションのリスト項目に余分なマージンがある場合は削除 */
+.navbar-nav > li {
+  margin-right: 0;
 }
 
 
@@ -31,6 +76,28 @@ textarea {
   h1 {
     margin-bottom: 10px;
   }
+}
+
+.btn {
+  color: #fff;
+  background-color: #1B5678;
+  margin: 30px 0px;
+  width: 300px;
+  &:hover {
+    color: #fff;
+    background-color: #1B5678;
+  }
+}
+
+.btn-primary {
+  margin-top: 1rem; /* 適切な値に調整 */
+}
+
+.underline {
+  padding-bottom: 5px; /* 下線とテキストの間隔を調整 */
+  border-bottom: 1px solid; /* 下線の太さを制御 */
+  display: inline-block; /* テキストの幅に合わせて下線を描画 */
+  width: auto; /* 追加: 幅を自動調整 */
 }
 
 /* typography */
@@ -56,25 +123,21 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
-  line-height: 1.7em;
+  font-size: 2em;
+  line-height: 1em;
 }
 
-
-/* header */
-
 header {
-  background-color:#1B5678;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 70px; /* ヘッダーの高さに合わせて適切な値に変更 */
+  background-color: #1B5678;
+}
 
-  li {
-    color: black;
-    background-color: #f1f1f1;
-    border-radius: 10px;
-
-    a {
-      color: black;
-    }
-  }
+.container header {
+  padding-top: 0; /* ヘッダーの余白をリセット */
 }
 
 #logo {
@@ -92,27 +155,30 @@ header {
   }
 }
 
-/* footer */
-
-footer {
-  width: 100%;
-  text-align: center;
-  color: white;
-  background-color:#1B5678;
-  position: absolute;
-  bottom: 0; 
-  position:fixed;
+.navbar-nav li {
+  color: white; /* 必要に応じて色を調整してください */
 }
 
 
-/* miscellaneous */
+/* footer */
 
-.debug_dump {
-    clear: both;
-    float: left;
-    width: 100%;
-    margin-top: 45px;
+footer {
+  color: #fff;
+  background-color: #1B5678;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+
+  p{
+    text-align: center;
   }
+}
+
+body {
+  margin-bottom: 100px; /* Footerの高さ分を追加 */
+}
 
 /* sidebar */
 
@@ -153,11 +219,19 @@ aside {
 /* forms */
 
 input, textarea, select, .uneditable-input {
-    border: 1px solid #bbb;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     @include box_sizing;
+    border: none;
+    background: transparent;
+    border-bottom: solid lightgray;
   }
+
+.fill {
+  font-size: smaller;
+  color:lightgray;
+  text-align: left;
+}
   
   input {
     height: auto !important;
@@ -178,20 +252,70 @@ input, textarea, select, .uneditable-input {
     }
   }
 
+  .custom-file-field {
+    border: none;
+    background: none; 
+    color: transparent;
+  }
+
+  .custom-file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .custom-file-label {
+    background-color: #CCCCCC; /* グレーの背景色 */
+    color: #000000; /* 黒の文字色 */
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-file-input:focus + .custom-file-label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+
+ /* モーダル全体のスタイル */
+dialog {
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* モーダル内のテキストのスタイル */
+.dialog-text {
+  font-size: 18px !important;
+  margin-bottom: 20px !important;
+  color: #000 !important;
+  visibility: visible !important;
+}
+
+/* 閉じるボタンのスタイル */
+button {
+  background-color: #1B5678;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* ボタンホバー時のスタイル */
+button:hover {
+  background-color: #1B5678;
+}
+
   /* Dropdown menu */
 
 .dropdown-menu.active {
     display: block;
-  }
-
-
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    height: 100vh; 
-    background-color: #f1f1f1;
   }
 
 input {
@@ -201,14 +325,135 @@ input {
     margin: 0 auto;
   }
 
-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
+
 
 select {
     margin-bottom: 10px;
     margin-top: 10px;
   }
+
+  .icon.img-fluid {
+    width: 360px;
+    height: 360px;
+  }
+
+  .number {
+    width: 94px;
+    height: 44px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid;
+    gap: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .custom-select {
+    position: relative;
+    display: inline-block;
+  }
+
+  .custom-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 8px 32px 8px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .custom-select::after {
+    content: '\25BC'; /* Unicode character for down arrow */
+    font-size: 16px;
+    color: black;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+
+  .item-container {
+    display: flex;
+    justify-content: space-between; /* 要素を等間隔で配置 */
+    align-items: center;
+    margin-bottom: 10px; /* 見栄えのための余白（必要に応じて調整） */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    height: 60px;
+  }
+
+  .form-inline {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+  }
+
+  .form-group {
+    margin-right: 70px;
+    margin-left: 70px;
+  }
+
+   /* ボタンのスタイルを調整 */
+   .open-modal.btn.btn-primary {
+    margin-top: 30px; /* 必要に応じて調整 */
+  }
+
+  .item-details {
+    width: 45%; /* オプション: 調整が必要な場合は幅を変更 */
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .modal-buttons {
+    width: 45%; /* オプション: 調整が必要な場合は幅を変更 */
+    display: flex;
+    justify-content: space-between;
+  }
+
+ /* モーダルのスタイル */
+ .modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 透明な背景 */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  text-align: center;
+}
+
+.modal-close-btn {
+  background-color: #1B5678;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.modal-close-btn:hover {
+  background-color: #1B5678;
+  color: white;
+}
+
+.scroll-container {
+  max-height: 190px; /* 表示領域の高さを指定 */
+  overflow-y: auto;
+}

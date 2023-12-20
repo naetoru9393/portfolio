@@ -1,10 +1,20 @@
 class ItemsController < ApplicationController
+  before_action :logged_in_user, only: [:new, :create, :update, :destroy]
 
   def new
     @category_id = params[:id]
     @month = params[:month]
     @current_user = current_user.id
     @item = Item.new
+
+    if "1" == @category_id
+      @name = "バックエンド"
+    elsif "2" == @category_id
+      @name = "フロントエンド"
+    else
+      @name = "インフラ"
+    end
+
     session[:previous_url] = request.referer
   end
 
@@ -13,20 +23,22 @@ class ItemsController < ApplicationController
       @month = params[:month]
       @item = Item.new(item_params)
       @item.save
-      redirect_to session[:previous_url]
+      #redirect_to session[:previous_url]
     end
   
-    def update
-      @item = Item.find(params[:id])
-      @item.update(item_params)
-    end
+      def update
+        @item = Item.find(params[:id])
+        Rails.logger.debug "Item ID: #{params[:id]}"
+        @item.update(item_params)
+      end
 
-    def destroy
-      @item = Item.find(params[:id])
-      @item.destroy
-      redirect_back(fallback_location: root_path)
-  end
-
+      def destroy
+        @item = Item.find(params[:id])
+        @item.destroy
+      
+        
+      end
+      
   private
 
     def item_params
@@ -42,9 +54,4 @@ class ItemsController < ApplicationController
       end
     end
 
-    # 正しいユーザーかどうか確認
-  def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless current_user?(@user)
-    end
   end

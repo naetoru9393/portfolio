@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_digest
   has_one_attached :image
     before_save { self.email = email.downcase }
     validates :name, presence: true, length: { maximum: 50 }
@@ -8,8 +9,7 @@ class User < ApplicationRecord
                       uniqueness: true
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-    validates :introduction, presence: false, length: { maximum: 50 } # 自己紹介の最高文字数は50文字
-
+    validates :introduction, presence: { message: '自己紹介文が空です' }, length: { minimum: 50, maximum: 200, message: '50文字以上、200文字未満で入力してください' }
     # 渡された文字列のハッシュ値を返す
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -29,5 +29,10 @@ class User < ApplicationRecord
   def session_token
    # remember_digest || remember
   end
+
+    # ユーザーの永続セッションを破棄する
+      def forget
+        update_columns(remember_digest: nil)
+      end
 
   end
