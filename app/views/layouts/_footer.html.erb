@@ -1,4 +1,7 @@
 <footer>
-<p>portfolio site</p>
-<%= %>
+<% if @current_user.present? %>
+        <p><%= @current_user.name %></p>
+      <% else %>
+        <p>portfolio site</p>
+      <% end %>
 </footer>

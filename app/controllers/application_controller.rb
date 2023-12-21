@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
       redirect_to login_url, status: :see_other
     end
   end
+
+  def set_current_user
+    @current_user = current_user
+  end
 end

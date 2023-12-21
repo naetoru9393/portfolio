@@ -1,34 +1,24 @@
 <% provide(:title, 'Skill') %>
 <h1><%= @name %>に項目を追加</h1>
 
-<dialog id="keep">
-  <!-- モーダルウィンドウ内のテキストの指定 -->
-  <p><span id="itemName"></span>を<span id="studyTime"></span>分で追加しました！</p>
-  <!-- モーダルウィンドウ内を閉じるボタンの指定 -->
-  <button id="close">編集ページに戻る</button>
-</dialog>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @item, html: { id: 'item-form' }) do |f| %>
       <div class="form-group">
         <%= f.label :項目名 %>
         <%= f.text_field :item_name, class: 'form-control', id: 'item-name-input' %>
+        <%= f.hidden_field :category_id, value:  @category_id %>
+        <%= f.hidden_field :user_id, value:  @current_user %>
+        <%= f.hidden_field :month, value:  @month %>
       </div>
 
       <div class="form-group">
-  <%= f.label :学習時間 %>
-  <div class="input-group">
-    <%= f.text_field :study_time, class: 'form-control', id: 'study-time-input' %>
-    <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button" id="increment-btn"><i class="fas fa-chevron-up"></i></button>
-    <button class="btn btn-outline-secondary" type="button" id="decrement-btn"><i class="fas fa-chevron-down"></i></button>
-    
-    </div>
-  </div>
-  <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill' %>
-</div>
-
+        <%= f.label :学習時間 %>
+        <div class="input-group">
+          <%= f.number_field :study_time, autocomplete: "off" %>
+        </div>
+        <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill' %>
+      </div>
 
       <div class="text-center">
         <%= f.submit "追加する", class: "btn btn-primary", id: "open" %>
@@ -37,45 +27,40 @@
   </div>
 </div>
 
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <p id="modalContent"></p>
+    <a href="#" class="modal-close-btn" onclick="closeModal()">編集ページに戻る</a>
+  </div>
+</div>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    let dialog = document.getElementById('keep');
-    let btn_open = document.getElementById('open');
-    let btn_close = document.getElementById('close');
-    let itemNameSpan = document.getElementById('itemName');
-    let studyTimeSpan = document.getElementById('studyTime');
-    let form = document.getElementById('item-form');
-    let itemNameInput = document.getElementById('item-name-input');
-    let studyTimeInput = document.getElementById('study-time-input');
-    let incrementBtn = document.getElementById('increment-btn');
-    let decrementBtn = document.getElementById('decrement-btn');
+  // モーダル表示用の関数
+  function openModal(content) {
+    var modal = document.getElementById('myModal');
+    var modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = content;
+    modal.style.display = 'block';
+  }
 
-    btn_open.addEventListener('click', function() {
-      // クリック時にフォームの内容をモーダルに反映
-      itemNameSpan.textContent = itemNameInput.value;
-      studyTimeSpan.textContent = studyTimeInput.value;
+  // モーダル非表示用の関数
+  function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+  }
 
-      dialog.showModal();
-    }, false);
+  // ボタンクリック時にモーダルを表示
+  document.getElementById('open').addEventListener('click', function() {
+    var itemName = document.getElementById('item-name-input').value;
+    var studyTime = document.getElementById('item-form').elements['item[study_time]'].value;
+    var content = "<%= @name %>に" + itemName + "を" + studyTime + "分で追加しました！";
+    openModal(content);
+  });
 
-    btn_close.addEventListener('click', function() {
-      dialog.close();
-      const ref = document.referrer;
-      window.location.href = ref;
-    }, false);
-
-    incrementBtn.addEventListener('click', function() {
-      updateStudyTime(1);
-    });
-
-    decrementBtn.addEventListener('click', function() {
-      updateStudyTime(-1);
-    });
-
-    function updateStudyTime(amount) {
-      let currentStudyTime = parseInt(studyTimeInput.value, 10) || 0;
-      currentStudyTime += amount;
-      studyTimeInput.value = Math.max(0, currentStudyTime);
-    }
+  // モーダルが閉じられた時に前のURLに戻る
+  document.querySelector('.modal-close-btn').addEventListener('click', function() {
+    closeModal();
+    var previousUrl = document.referrer;
+    window.location.href = previousUrl;
   });
 </script>

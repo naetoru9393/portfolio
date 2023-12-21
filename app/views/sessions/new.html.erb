@@ -1,20 +1,37 @@
 <% provide(:title, "Log in") %>
-<h1 calss="">ログイン</h1>
+<h1 class="">ログイン</h1>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
- 
+  <div class="col-md-6 col-md-offset-3 text-center">
     <%= form_with(url: login_path, scope: :session) do |f| %>
 
-      <%= f.label :メールアドレス, {class: 'fill'} %>
-      <%= f.email_field :email%>
+      <div class="text-left">
+        <%= f.label :メールアドレス, class: 'fill' %>
+        <%= f.email_field :email, class: 'underlined-field' %>
+      </div>
 
-      <%= f.label :パスワード, {class: 'fill'} %>
-      <%= f.password_field :password%>
+      <div class="text-left">
+        <%= f.label :パスワード, class: 'fill' %>
+        <%= f.password_field :password, class: 'underlined-field' %>
+      </div>
 
-      <%= f.submit "ログインする", class: "btn btn-primary" %>
+      <%= f.submit "ログインする", class: "btn btn-primary mx-auto" %>
     <% end %>
 
-    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get, class: "btn"} %>
+    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get, class: "btn btn-secondary mx-auto mt-3"} %>
+
+    <% if @user && @user.errors.any? %>
+      <div id="error_explanation">
+        <div class="alert alert-danger">
+          <strong>ユーザーの作成に失敗しました。</strong>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
   </div>
-  </div>
+</div>

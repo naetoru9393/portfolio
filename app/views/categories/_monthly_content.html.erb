@@ -1,29 +1,51 @@
-<div style="display: flex; flex-wrap: wrap;">
-  <% backends.each do |item| %>
-    <div style="display: flex; align-items: center; margin-right: 10px; padding-left: 60px;">
-      <%= form_with(model: item) do |i| %>
-        <div style="display: inline-block; margin-right: 10px; padding-left: 10px;">
-          <%= item.item_name %>
-        </div>
-        <div style="display: inline-block; margin-right: 10px; padding-left: 180px;">
-          <%= i.number_field :study_time, autocomplete: "off" %>
-        </div>
-        <div style="display: inline-block; margin-right: 10px; padding-left: 80px;">
-          <%= i.hidden_field :item_name, value: item.item_name %>
-        </div>
-        <div style="display: inline-block; padding-left: 100px;">
-          <%= i.submit "学習時間を保存する", class: "open-modal" %>
-        </div>
-      <% end %>
+<div style="padding: 10px; margin-bottom: 20px; border-radius: 10px; overflow-y: auto; max-height: 300px">
+  <!-- 項目名と学習時間のヘッダー部分 -->
+  <table style="width: 100%; border-collapse: collapse">
+    <thead>
+      <tr style="border-bottom: 1px solid lightgray;">
+        <th style="padding: 10px; width: 19%; padding-left: 65px; border-left: 1px solid lightgray; border-top: 1px solid lightgray;">項目名</th>
+        <th style="padding: 10px; padding-left: 65px; border-top: 1px solid lightgray; border-right: 1px solid lightgray;">学習時間</th>
+      </tr>
+    </thead>
+  </table>
 
-      <%= form_with(model: item, method: :delete) do |i| %>
-        <div style="display: inline-block; padding-left: 100px;">
-          <%= i.submit "削除する", class: "destroy-modal", data: { item_name: item.item_name, item_id: item.id } %>
-        </div>
+  <!-- データ部分 -->
+  <div style="overflow-y: auto; max-height: 166px;">
+  <table style="width: 100%; border-collapse: collapse; border: 1px solid lightgray; box-shadow: 0px 5px 5px -5px #888888;">
+    <tbody>
+      <% backends.each do |item| %>
+        <tr style="border-bottom: 1px solid lightgray;">
+          <td style="padding: 10px; padding-left: 70px; padding-right: 60px">
+            <%= item.item_name %>
+          </td>
+          <td style="padding: 10px">
+            <div style="border: 1px solid lightgray; padding: 5px; display: inline-block;">
+              <%= form_with(model: item, local: true, html: { method: :patch, class: "update-form" }) do |i| %>
+                <%= i.number_field :study_time, autocomplete: "off" %>
+              <% end %>
+            </div>
+          </td>
+          <td style="padding: 10px">
+            <div style="border: 1px solid #1B5678; padding: 5px; display: inline-block; width: 200px;">
+              <%= form_with(model: item, local: true, html: { method: :patch, class: "update-form" }) do |i| %>
+                <%= i.submit "学習時間を保存する", class: "open-modal", style: "color: #1B5678;", onclick: "handleSave('#{item.item_name}')", data: { disable_with: "処理中..." } %>
+              <% end %>
+            </div>
+          </td>
+          <td style="padding: 10px">
+            <%= form_with(model: item, method: :delete, local: true) do |i| %>
+              <%= i.submit "削除する", class: "destroy-modal", data: { item_name: item.item_name, item_id: item.id }, style: "color: white; background-color: #EE6969; padding: 5px; display: inline-block; width: 120px;", onclick: "confirmDelete('#{item.item_name}', #{item.id})" %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    </div>
-  <% end %>
+    </tbody>
+  </table>
 </div>
+
+</div>
+
+
 
 
 
@@ -35,91 +57,26 @@
 </div>
 
 <script>
-function deleteItem(itemId) {
-  fetch(`/items/${itemId}`, { method: 'DELETE' })
-    .then(response => {
-      if (response.ok) {
-        return response.json(); // JSON形式のレスポンスを取得
-      } else {
-        console.error('アイテムの削除に失敗しました。ステータス:', response.status);
-        // エラーメッセージが JSON 形式でない場合の処理
-        response.text().then(errorText => {
-          console.error('エラーテキスト:', errorText);
-        });
-      }
-    })
-    .then(data => {
-      if (data && data.status === 'success') {
-        handleItemDeletion(data.item_id);
-      }
-    })
-    .catch(error => console.error('アイテムの削除中にエラーが発生しました:', error));
-}
+ function showModal(content) {
+    var modal = document.getElementById('myModal');
+    var modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = content;
+    modal.style.display = 'flex';
+  }
 
-// モーダル表示関数
-function showModal(itemName) {
-  var modal = document.getElementById('myModal');
-  var modalContent = document.getElementById('modalContent');
+  function handleSave(itemName) {
+    showModal(itemName + 'の学習時間を保存しました！<br><br>');
+    // 保存の実際の処理を追加する
+  }
 
-  // モーダルコンテンツの更新
-  modalContent.innerHTML = itemName + 'の学習時間を保存しました！<br><br>';
-  
-  // モーダルを表示
-  modal.style.display = 'flex'; // display: flex に変更
-}
+  function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+    location.reload();
+  }
 
-// 保存ボタンがクリックされたときにモーダルを表示
-function handleSave(itemName) {
-  showModal(itemName);
-  // ここに保存の実際の処理を追加する
-}
-
-// モーダルを閉じる関数
-function closeModal() {
-  var modal = document.getElementById('myModal');
-  modal.style.display = 'none';
-  
-  // ページをリロード
-  location.reload();
-}
-
-// アイテム削除後の処理
-function handleItemDeletion(itemName) {
-  var modalContent = document.getElementById('modalContent');
-  modalContent.innerHTML = itemName + 'を削除しました！<br><br>';
-
-  var closeBtn = document.createElement('button');
-  closeBtn.innerText = '閉じる';
-  closeBtn.onclick = function() {
-    closeModal();
-  };
-  modalContent.appendChild(closeBtn);
-
-  showModal();
-}
-
-
-// アイテム削除を確認し、削除処理を実行
-function confirmDelete(itemName, itemId) {
-  var modalContent = document.getElementById('modalContent');
-  modalContent.innerHTML = itemName + 'を削除します。よろしいですか？<br><br>';
-
-  var confirmBtn = document.createElement('button');
-  confirmBtn.innerText = 'はい';
-  confirmBtn.onclick = function() {
-    closeModal();
-    deleteItem(itemId);
-  };
-  modalContent.appendChild(confirmBtn);
-
-  var cancelBtn = document.createElement('button');
-  cancelBtn.innerText = 'いいえ';
-  cancelBtn.onclick = function() {
-    closeModal();
-  };
-  modalContent.appendChild(cancelBtn);
-
-  showModal();
-}
-
+  function confirmDelete(itemName, itemId) {
+    showModal(itemName + 'を削除しました！');
+  }
 </script>
+

@@ -22,21 +22,18 @@ class ItemsController < ApplicationController
       @category_id = params[:id]
       @month = params[:month]
       @item = Item.new(item_params)
-      @item.save
+      @item.save!
       #redirect_to session[:previous_url]
     end
   
       def update
         @item = Item.find(params[:id])
-        Rails.logger.debug "Item ID: #{params[:id]}"
         @item.update(item_params)
       end
 
       def destroy
         @item = Item.find(params[:id])
         @item.destroy
-      
-        
       end
       
   private

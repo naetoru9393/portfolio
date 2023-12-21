@@ -31,6 +31,8 @@ class UsersController < ApplicationController
           flash[:success] = "Welcome to the Sample App!"
           redirect_to @user
         else
+          Rails.logger.error("User creation failed: #{@user.errors.full_messages}")
+          flash[:danger] = 'ユーザーの作成に失敗しました。'
           render 'new', status: :unprocessable_entity
         end
       end
@@ -53,7 +55,6 @@ class UsersController < ApplicationController
 
       def user_params
         params.require(:user).permit(:name, :email, :password,
-                                     :password_confirmation,
                                      :introduction, :image)
       end
 

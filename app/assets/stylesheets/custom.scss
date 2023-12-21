@@ -93,6 +93,12 @@ textarea {
   margin-top: 1rem; /* 適切な値に調整 */
 }
 
+.custom-btn {
+  width: 170px;
+  height: 50px;
+  margin-top: 30px;
+}
+
 .underline {
   padding-bottom: 5px; /* 下線とテキストの間隔を調整 */
   border-bottom: 1px solid; /* 下線の太さを制御 */
@@ -145,7 +151,6 @@ header {
   margin-right: 10px;
   font-size: 1.7em;
   color: white;
-  text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
@@ -224,7 +229,7 @@ input, textarea, select, .uneditable-input {
     @include box_sizing;
     border: none;
     background: transparent;
-    border-bottom: solid lightgray;
+   
   }
 
 .fill {
@@ -232,10 +237,6 @@ input, textarea, select, .uneditable-input {
   color:lightgray;
   text-align: left;
 }
-  
-  input {
-    height: auto !important;
-  }
 
   #error_explanation {
     color: red;
@@ -267,6 +268,9 @@ input, textarea, select, .uneditable-input {
   .custom-file-label {
     background-color: #CCCCCC; /* グレーの背景色 */
     color: #000000; /* 黒の文字色 */
+    font-weight: lighter;
+    text-align: center;
+    width: 40%;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -324,8 +328,6 @@ input {
     justify-content: center;
     margin: 0 auto;
   }
-
-
 
 select {
     margin-bottom: 10px;
@@ -419,41 +421,66 @@ select {
     justify-content: space-between;
   }
 
- /* モーダルのスタイル */
- .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 透明な背景 */
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #fefefe;
-  padding: 20px;
-  border: 1px solid #888;
-  text-align: center;
-}
-
-.modal-close-btn {
-  background-color: #1B5678;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 20px;
-}
-
-.modal-close-btn:hover {
-  background-color: #1B5678;
-  color: white;
-}
-
 .scroll-container {
   max-height: 190px; /* 表示領域の高さを指定 */
   overflow-y: auto;
+}
+
+.custom-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff; /* ボタンの背景色 */
+  color: black; /* ボタンのテキスト色 */
+  border: 2px solid #fff; /* ボーダーの色 */
+  border-radius: 5px; /* ボーダーの角の丸み */
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #fff; /* ホバー時の背景色 */
+  border-color: #fff; /* ホバー時のボーダーの色 */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 26%;
+  padding: 20px;
+  width: 50%;
+}
+
+.modal-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 90%;
+}
+
+.modal-close-btn {
+  padding: 10px 20px; /* パディングを設定 */
+  background-color: #1B5678; /* ボタンの背景色 */
+  color: #fff; /* ボタンのテキスト色 */
+  border: none; /* ボーダーをなくす */
+  border-radius: 5px; /* ボーダーの角を丸くする */
+  cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+}
+
+/* ボタンにホバー時のスタイルを追加したい場合 */
+.modal-close-btn:hover {
+  color: #fff;
+  background-color: #1B5678; /* ホバー時の背景色 */
+}
+
+.underlined-field {
+  border: none;
+  border-bottom: 1px solid lightgray; /* 下線の色を変更する場合は、#000を適切な色に変更してください */
+  margin-bottom: 10px; /* 下線とフォームの隙間を調整する場合は、適切な値に変更してください */
+  padding-bottom: 5px; /* 下線とテキストの隙間を調整する場合は、適切な値に変更してください */
 }

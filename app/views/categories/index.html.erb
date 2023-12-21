@@ -10,93 +10,28 @@
 </div>
 
 <!-- バックエンド -->
-<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <h1>バックエンド</h1>
-    <div style="display: flex; align-items: center;">
+    <div style="text-decoration: underline;">
+      <h1 style="margin-bottom: 10px; margin-left: 10px;">バックエンド</h1>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
       <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
         <%= f.hidden_field :id, value: "1" %>
         <%= f.hidden_field :month, value: @month %>
         <%= f.hidden_field :category_name, value: "backend" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
       <% end %>
     </div>
   </div>
 
-<div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-  <!-- 項目名と学習時間の部分 -->
-  <div style="margin-bottom: 20px;">
-    <table style="width: 100%; border-collapse: collapse;">
-      <tr style="border-bottom: 1px solid #ccc;">
-        <th style="padding: 10px; width: 19%; padding-left: 65px;">項目名</th>
-        <th style="padding: 10px; padding-left: 65px;">学習時間</th>
-      </tr>
-    </table>
-  </div>
-  
   <%= render partial: 'monthly_content', locals: { backends: @backends } %>
-  </div>
+</table>
 </div>
 
-<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <h1>フロントエンド</h1>
-    <div style="display: flex; align-items: center;">
-      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
-        <%= f.hidden_field :id, value: "2" %>
-        <%= f.hidden_field :month, value: @month %>
-        <%= f.hidden_field :category_name, value: "backend" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
-      <% end %>
-    </div>
-  </div>
 
-<div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-  <!-- 項目名と学習時間の部分 -->
-  <div style="margin-bottom: 20px;">
-    <table style="width: 100%; border-collapse: collapse;">
-      <tr style="border-bottom: 1px solid #ccc;">
-        <th style="padding: 10px; width: 19%; padding-left: 65px;;">項目名</th>
-        <th style="padding: 10px">学習時間</th>
-      </tr>
-    </table>
-  </div>
-
-  <%= render partial: 'front_content', locals: { fronteds: @frontends } %>
-  </div>
-  </div>
-
-
-  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <h1>インフラ</h1>
-    <div style="display: flex; align-items: center;">
-      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
-        <%= f.hidden_field :id, value: "3" %>
-        <%= f.hidden_field :month, value: @month %>
-        <%= f.hidden_field :category_name, value: "backend" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary", id: "open" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-  <!-- 項目名と学習時間の部分 -->
-  <div style="margin-bottom: 20px;">
-    <table style="width: 100%; border-collapse: collapse;">
-      <tr style="border-bottom: 1px solid #ccc;">
-        <th style="padding: 10px; width: 19%; padding-left: 65px;;">項目名</th>
-        <th style="padding: 10px">学習時間</th>
-      </tr>
-    </table>
-  </div>
-
-  <%= render partial: 'infra_content', locals: { infrastructures: @infrastructures } %>
-  </div>
-  </div>
-
-
-  <script>
+<script>
   function navigateToSelectedMonth() {
     // 選択された月の値を取得
     var selectedMonth = document.getElementById('number').value;
@@ -104,8 +39,17 @@
     // 現在のURLを取得
     var currentUrl = window.location.href;
 
-    // パラメーターの部分を置換して新しいURLを構築
-    var newUrl = currentUrl.replace(/month=\d+/, 'month=' + selectedMonth);
+    // パラメーターが既に存在するか確認
+    var paramRegex = /month=\d+/;
+    var newUrl;
+
+    if (paramRegex.test(currentUrl)) {
+      // 既に month パラメーターが存在する場合は置換
+      newUrl = currentUrl.replace(paramRegex, 'month=' + selectedMonth);
+    } else {
+      // month パラメーターが存在しない場合は追加
+      newUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'month=' + selectedMonth;
+    }
 
     // 新しいURLに遷移
     window.location.href = newUrl;

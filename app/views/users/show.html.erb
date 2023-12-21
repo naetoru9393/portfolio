@@ -2,29 +2,33 @@
 
 
 <div class="container mt-3">
-  <div class="row">
+<div class="row">
     <!-- プロフィール -->
-    <div class="col-md-4 text-center">
-      <% if @user.image.present? %>
-        <%= image_tag @user.image, class: 'icon img-fluid profile-image' %>
-      <% else %>
-        <%= image_tag 'gray-image.jpeg', class: 'icon img-fluid profile-image' %>
-      <% end %>
-      <h3 class="mt-2"><%= @user.name %></h3>
+    <div class="col-md-4 text-center" style="padding-left: 100px;">
+        <% if @user.image.present? %>
+            <%= image_tag @user.image, class: 'icon img-fluid profile-image' %>
+        <% else %>
+            <%= image_tag 'gray-image.jpeg', class: 'icon img-fluid profile-image' %>
+        <% end %>
+        <h3 class="mt-2" style="margin-left: 70px;"><%= @user.name %></h3>
     </div>
-    <div class="col-md-8">
-    <h1 class="text-left mb-4 underline">自己紹介</h1>
-      <% if @user.introduction.present? %>
-        <p class="text-left">
-          <% @user.introduction.scan(/.{1,30}/).each do |line| %>
-            <%= line %><br>
-          <% end %>
-        </p>
-      <% end %>
-      <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2" } %>
+    <div class="col-md-8" style="padding-left: 170px;"> <!-- padding-leftを追加 -->
+        <div class="text-md-left">
+            <h1 class="text-left mb-4 underline">自己紹介</h1>
+            <% if @user.introduction.present? %>
+                <p class="text-left">
+                    <% @user.introduction.scan(/.{1,30}/).each do |line| %>
+                        <%= line %><br>
+                    <% end %>
+                </p>
+            <% end %>
+            <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2" } %>
+        </div>
     </div>
     <!-- プロフィール終了 -->
-  </div>
+</div>
+
+
 
   <!-- 学習チャート -->
   <div class="row mt-3">
