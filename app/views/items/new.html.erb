@@ -6,7 +6,7 @@
     <%= form_with(model: @item, html: { id: 'item-form' }) do |f| %>
       <div class="form-group">
         <%= f.label :項目名 %>
-        <%= f.text_field :item_name, class: 'form-control', id: 'item-name-input' %>
+        <%= f.text_field :item_name, class: 'no-border', id: 'item-name-input' %>
         <%= f.hidden_field :category_id, value:  @category_id %>
         <%= f.hidden_field :user_id, value:  @current_user %>
         <%= f.hidden_field :month, value:  @month %>
@@ -15,7 +15,7 @@
       <div class="form-group">
         <%= f.label :学習時間 %>
         <div class="input-group">
-          <%= f.number_field :study_time, autocomplete: "off" %>
+        <%= f.number_field :study_time, autocomplete: "off", style: 'width: 450px; border: none; border-bottom: 1px solid #ccc;' %>
         </div>
         <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill' %>
       </div>
@@ -53,7 +53,8 @@
   document.getElementById('open').addEventListener('click', function() {
     var itemName = document.getElementById('item-name-input').value;
     var studyTime = document.getElementById('item-form').elements['item[study_time]'].value;
-    var content = "<%= @name %>に" + itemName + "を" + studyTime + "分で追加しました！";
+    var name = "<%= @name %>";
+    var content = name + "に" + itemName + "を<br>" + studyTime + "分で追加しました！";
     openModal(content);
   });
 

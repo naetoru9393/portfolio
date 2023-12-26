@@ -484,3 +484,11 @@ select {
   margin-bottom: 10px; /* 下線とフォームの隙間を調整する場合は、適切な値に変更してください */
   padding-bottom: 5px; /* 下線とテキストの隙間を調整する場合は、適切な値に変更してください */
 }
+
+.no-border {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}

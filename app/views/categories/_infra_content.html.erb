@@ -1,0 +1,73 @@
+<div style="padding: 10px; margin-bottom: 20px; border-radius: 10px; overflow-y: auto; max-height: 218px">
+  <!-- 項目名と学習時間のヘッダー部分 -->
+  <table style="width: 100%; border-collapse: collapse; border: 2px solid lightgray; border-radius: 8px;">
+    <thead>
+      <tr style="border-bottom: 1px solid lightgray;">
+        <th style="padding: 10px; width: 19%; padding-left: 65px; border-left: 1px solid lightgray; border-top: 1px solid lightgray;">項目名</th>
+        <th style="padding: 10px; padding-left: 65px; border-top: 1px solid lightgray;">学習時間</th>
+        <th style="padding: 10px;"></th> <!-- 修正: フォームを含めるための空のセルを追加 -->
+      </tr>
+    </thead>
+    <!-- データ部分 -->
+    <tbody class="scrollable-tbody" style="overflow-y: auto; max-height: 300px;">
+      <% infrastructures.each do |item| %>
+        <tr style="border-bottom: 1px solid lightgray; border-radius: 8px;">
+          <%= form_with(model: item) do |i| %>
+            <td style="padding: 10px; padding-left: 70px; border-radius: 8px;">
+              <%= item.item_name %>
+            </td>
+            <td style="padding: 10px; border-radius: 8px;">
+              <div style="border: 1px solid lightgray; padding: 5px; display: inline-block; border-radius: 8px; margin-left: 50px;">
+                <%= i.number_field :study_time, autocomplete: "off" %>
+              </div>
+            </td>
+            <td style="padding: 10px; border-radius: 8px;">
+              <div style="display: inline-block; margin-right: 10px; padding-left: 60px;">
+                <%= i.hidden_field :item_name, value: item.item_name %>
+              </div>
+              <div style="border: 1px solid #1B5678; padding: 5px; display: inline-block; width: 200px; border-radius: 8px;">
+                <%= i.submit "学習時間を保存する", class: "open-modal", style: "color: #1B5678;", onclick: "handleSave('#{item.item_name}')", data: { disable_with: "処理中..." } %>
+              </div>
+            </td>
+          <% end %>
+          <td style="padding: 10px; border-radius: 8px;">
+            <%= form_with(model: item, method: :delete, local: true) do |i| %>
+              <%= i.submit "削除する", class: "destroy-modal", data: { item_name: item.item_name, item_id: item.id }, style: "color: white; background-color: #EE6969; padding: 5px; display: inline-block; width: 120px; border-radius: 8px;", onclick: "confirmDelete('#{item.item_name}', #{item.id})" %>
+            <% end %>          
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <p id="modalContent"></p>
+    <a href="#" class="modal-close-btn" onclick="closeModal()">編集ページに戻る</a>
+  </div>
+</div>
+
+<script>
+ function showModal(content) {
+    var modal = document.getElementById('myModal');
+    var modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = content;
+    modal.style.display = 'flex';
+  }
+
+  function handleSave(itemName) {
+    showModal(itemName + 'の学習時間を保存しました！<br><br>');
+    // 保存の実際の処理を追加する
+  }
+
+  function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+    location.reload();
+  }
+
+  function confirmDelete(itemName, itemId) {
+    showModal(itemName + 'を削除しました！');
+  }
+</script>

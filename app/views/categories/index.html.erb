@@ -31,6 +31,50 @@
 </div>
 
 
+<!-- フロントエンド -->
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <div style="text-decoration: underline;">
+      <h1 style="margin-bottom: 10px; margin-left: 10px;">フロントエンド</h1>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
+      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
+        <%= f.hidden_field :id, value: "2" %>
+        <%= f.hidden_field :month, value: @month %>
+        <%= f.hidden_field :category_name, value: "frontends" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render partial: 'front_content', locals: { frontends: @frontends } %>
+</table>
+</div>
+
+
+<!-- インフラ -->
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <div style="text-decoration: underline;">
+      <h1 style="margin-bottom: 10px; margin-left: 10px;">インフラ</h1>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
+      <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
+        <%= f.hidden_field :id, value: "3" %>
+        <%= f.hidden_field :month, value: @month %>
+        <%= f.hidden_field :category_name, value: "infrastructures" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render partial: 'infra_content', locals: { infrastructures: @infrastructures } %>
+</table>
+</div>
+
+
 <script>
   function navigateToSelectedMonth() {
     // 選択された月の値を取得

@@ -17,9 +17,7 @@
             <h1 class="text-left mb-4 underline">自己紹介</h1>
             <% if @user.introduction.present? %>
                 <p class="text-left">
-                    <% @user.introduction.scan(/.{1,30}/).each do |line| %>
-                        <%= line %><br>
-                    <% end %>
+                    <%= @user.introduction %>
                 </p>
             <% end %>
             <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2" } %>

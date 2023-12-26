@@ -31,9 +31,7 @@ class UsersController < ApplicationController
           flash[:success] = "Welcome to the Sample App!"
           redirect_to @user
         else
-          Rails.logger.error("User creation failed: #{@user.errors.full_messages}")
-          flash[:danger] = 'ユーザーの作成に失敗しました。'
-          render 'new', status: :unprocessable_entity
+          render 'new'
         end
       end
     

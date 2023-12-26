@@ -5,14 +5,25 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user) do |f| %>
 
-      <%= f.label :氏名, {class: 'fill'}  %>
-      <%= f.text_field :name, class: 'underlined-field'%>
+      <%= f.label :氏名, class: 'fill' %>
+      <%= f.text_field :name, class: 'underlined-field' %>
 
-      <%= f.label :メールアドレス, {class: 'fill'}  %>
-      <%= f.email_field :email, class: 'underlined-field'%>
+      <%= f.label :メールアドレス, class: 'fill' %>
+      <%= f.email_field :email, class: 'underlined-field' %>
 
-      <%= f.label :パスワード, {class: 'fill'}  %>
-      <%= f.password_field :password, class: 'underlined-field'%>
+      <%= f.label :パスワード, class: 'fill' %>
+      <%= f.password_field :password, class: 'underlined-field' %>
+
+      <!-- パスワードのエラーメッセージを表示 -->
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <%= f.submit "登録する", class: "btn btn-primary" %>
     <% end %>
