@@ -28,7 +28,7 @@
             <%= @user.introduction %>
           </p>
         <% end %>
-        <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2", style: "width: 242px;" } %>
+        <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2", style: "width: 240px; height: 50px;" } %>
       </div>
     </div>
     <!-- プロフィール終了 -->
@@ -45,7 +45,7 @@
   <span style="border-bottom: 1px solid; width: 400px; display: inline-block; margin-bottom: 16px;">学習チャート</span>
   </h1>
     <div class="text-center">
-    <%= link_to "編集する", user_categories_path(@user), method: :get, class: "btn btn-primary mt-3", style: "margin-bottom: 80px;" %>
+    <%= link_to "編集する", user_categories_path(@user), method: :get, class: "btn btn-primary mt-3", style: "margin-bottom: 80px; width: 150px; height: 50px; padding: 16px 40px;" %>
     </div>
     <canvas id="myChart" class="mt-3 mb-3"></canvas>
   </div>

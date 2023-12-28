@@ -9,18 +9,20 @@
 </div>
 
 <!-- バックエンド -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px; margin-top: 35px;">
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <div style="text-decoration: underline;">
-      <h1 style="margin-bottom: 10px; margin-left: 10px;">バックエンド</h1>
-    </div>
+ 
+  <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
+    <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">バックエンド</span>
+  </h1>
+
 
     <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
       <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
         <%= f.hidden_field :id, value: "1" %>
         <%= f.hidden_field :month, value: @month %>
         <%= f.hidden_field :category_name, value: "backend" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open", style: "width: 180px; height: 50px;" %>
       <% end %>
     </div>
   </div>
@@ -31,18 +33,19 @@
 
 
 <!-- フロントエンド -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px;">
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <div style="text-decoration: underline;">
-      <h1 style="margin-bottom: 10px; margin-left: 10px;">フロントエンド</h1>
-    </div>
+    
+  <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
+    <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">フロントエンド</span>
+  </h1>
 
     <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
       <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
         <%= f.hidden_field :id, value: "2" %>
         <%= f.hidden_field :month, value: @month %>
         <%= f.hidden_field :category_name, value: "frontends" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open", style: "width: 180px; height: 50px;" %>
       <% end %>
     </div>
   </div>
@@ -53,18 +56,19 @@
 
 
 <!-- インフラ -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 50px; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px;">
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <div style="text-decoration: underline;">
-      <h1 style="margin-bottom: 10px; margin-left: 10px;">インフラ</h1>
-    </div>
+    
+  <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
+    <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">インフラ</span>
+  </h1>
 
     <div style="display: flex; align-items: center; margin-right: 10px; margin-top: 20px;">
       <%= form_with(model: [@user, @category], url: user_categories_path(@user)) do |f| %>
         <%= f.hidden_field :id, value: "3" %>
         <%= f.hidden_field :month, value: @month %>
         <%= f.hidden_field :category_name, value: "infrastructures" %>
-        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open" %>
+        <%= f.submit "項目を追加する", class: "btn btn-primary custom-btn", id: "open", style: "width: 180px; height: 50px;" %>
       <% end %>
     </div>
   </div>

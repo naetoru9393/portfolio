@@ -1,12 +1,12 @@
 <% provide(:title, 'Skill') %>
-<h1><%= @name %>に項目を追加</h1>
+<h1 style="margin-top: 60px; margin-bottom: 80px;"><%= @name %>に項目を追加</h1>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6 col-md-offset-2"> <!-- col-md-offset-2に変更 -->
     <%= form_with(model: @item, html: { id: 'item-form' }) do |f| %>
       <div class="form-group">
         <%= f.label :項目名 %>
-        <%= f.text_field :item_name, class: 'no-border', id: 'item-name-input' %>
+        <%= f.text_field :item_name, class: 'no-border', id: 'item-name-input', style: 'width: 480px; margin-bottom: 48px;'  %>
         <%= f.hidden_field :category_id, value:  @category_id %>
         <%= f.hidden_field :user_id, value:  @current_user %>
         <%= f.hidden_field :month, value:  @month %>
@@ -15,14 +15,12 @@
       <div class="form-group">
         <%= f.label :学習時間 %>
         <div class="input-group">
-        <%= f.number_field :study_time, autocomplete: "off", style: 'width: 450px; border: none; border-bottom: 1px solid #ccc;' %>
+          <%= f.number_field :study_time, autocomplete: "off", style: 'width: 480px; border: none; border-bottom: 1px solid #ccc;' %>
         </div>
-        <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill' %>
+        <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill', style: "; margin-bottom: 48px;" %>
       </div>
 
-      <div class="text-center">
-        <%= f.submit "追加する", class: "btn btn-primary", id: "open" %>
-      </div>
+        <%= f.submit "追加する", class: "btn btn-primary", id: "open", style: "margin-left: 150px;" %>
     <% end %>
   </div>
 </div>
@@ -54,9 +52,18 @@
     var itemName = document.getElementById('item-name-input').value;
     var studyTime = document.getElementById('item-form').elements['item[study_time]'].value;
     var name = "<%= @name %>";
-    var content = name + "に" + itemName + "を<br>" + studyTime + "分で追加しました！";
+    var content;
+  
+    // エラーメッセージが存在する場合はそれを表示
+    <% if flash[:error].present? %>
+    content = "保存に失敗しました: [<%= flash[:error] %>]";
+  <% else %>
+    content = name + "に" + itemName + "を<br>" + studyTime + "分で追加しました！";
+  <% end %>
+  
     openModal(content);
   });
+  
 
   // モーダルが閉じられた時に前のURLに戻る
   document.querySelector('.modal-close-btn').addEventListener('click', function() {

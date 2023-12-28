@@ -5,12 +5,12 @@
   <div class="col-md-6 col-md-offset-3 text-center">
     <%= form_with(url: login_path, scope: :session) do |f| %>
 
-      <div class="text-left" style="width: 480px; margin-bottom: 48px; margin-left: 60px;">
+      <div class="text-left" style="width: 480px; margin-bottom: 48px;">
         <%= f.label :メールアドレス, class: 'fill' %>
         <%= f.email_field :email, class: 'underlined-field' %>
       </div>
 
-      <div class="text-left" style="width: 480px; margin-bottom: 48px; margin-left: 60px;">
+      <div class="text-left" style="width: 480px; margin-bottom: 48px;">
         <%= f.label :パスワード, class: 'fill' %>
         <%= f.password_field :password, class: 'underlined-field' %>
       </div>

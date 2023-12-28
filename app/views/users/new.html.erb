@@ -1,32 +1,33 @@
 <% provide(:title, 'Sign up') %>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation" style="text-align: left;">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <h1 style="color: rgba(0, 0, 0, 0.75); text-align: center; font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 400; line-height: 133.4%;">新規登録</h1>
 
 <div class="row">
-<div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user) do |f| %>
 
-      <%= f.label :氏名, class: 'fill', style: "margin-left: 55px;" %>
+      <%= f.label :氏名, class: 'fill' %>
       <%= f.text_field :name, class: 'underlined-field', style: "width: 480px; margin-bottom: 48px;" %>
 
-      <%= f.label :メールアドレス, class: 'fill', style: "margin-left: 55px;" %>
+      <%= f.label :メールアドレス, class: 'fill' %>
       <%= f.email_field :email, class: 'underlined-field', style: "width: 480px; margin-bottom: 48px;"%>
 
-      <%= f.label :パスワード, class: 'fill', style: "margin-left: 55px;" %>
+      <%= f.label :パスワード, class: 'fill' %>
       <%= f.password_field :password, class: 'underlined-field', style: "width: 480px; margin-bottom: 48px;"%>
 
-      <!-- パスワードのエラーメッセージを表示 -->
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-            <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
       <div class="text-center"> <!-- text-center クラスを追加 -->
-      <%= f.submit "登録する", class: "btn btn-primary", style: "width: 230px; height: 50px; padding: 16px 80px;" %>
+        <%= f.submit "登録する", class: "btn btn-primary", style: "width: 230px; height: 50px; padding: 16px 80px;" %>
       </div>
     <% end %>
   </div>

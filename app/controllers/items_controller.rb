@@ -18,13 +18,20 @@ class ItemsController < ApplicationController
     session[:previous_url] = request.referer
   end
 
-  def create
+
+    def create
       @category_id = params[:id]
       @month = params[:month]
       @item = Item.new(item_params)
-      @item.save!
-      #redirect_to session[:previous_url]
+  
+      if @item.save
+        
+      else
+        session[:previous_url] = request.referer
+        flash[:error] = "その項目はすでに存在します"
+      end
     end
+  
   
       def update
         @item = Item.find(params[:id])
