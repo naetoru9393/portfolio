@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        item:
+          attributes:
+            item_name:
+              blank: "を入力してください"
+              taken: "はすでに存在します"
+            study_time:
+              blank: "を入力してください"
+              not_a_number: "は数字で入力してください"
+            category_id:
+              blank: "を選択してください"
+            user_id:
+              blank: "を選択してください"
+            month:
+              blank: "を選択してください"

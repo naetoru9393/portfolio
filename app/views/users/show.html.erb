@@ -1,39 +1,51 @@
 <% provide(:title, @user.name) %>
 
 
-<div class="container mt-3">
-<div class="row">
+<div class="container mt-3" style="max-width: 960px;">
+  <div class="row" style="width: 960px; height: 360px;">
     <!-- プロフィール -->
-    <div class="col-md-4 text-center" style="padding-left: 100px;">
-        <% if @user.image.present? %>
-            <%= image_tag @user.image, class: 'icon img-fluid profile-image' %>
-        <% else %>
-            <%= image_tag 'gray-image.jpeg', class: 'icon img-fluid profile-image' %>
-        <% end %>
-        <h3 class="mt-2" style="margin-left: 70px;"><%= @user.name %></h3>
+    <div class="col-md-4 d-flex justify-content-end">
+    <% if @user.image.present? %>
+    <div class="profile-container">
+      <%= image_tag @user.image, class: 'icon img-fluid profile-image' %>
+      <h3 class="mt-2 text-center"><%= @user.name %></h3>
     </div>
-    <div class="col-md-8" style="padding-left: 170px;"> <!-- padding-leftを追加 -->
-        <div class="text-md-left">
-            <h1 class="text-left mb-4 underline">自己紹介</h1>
-            <% if @user.introduction.present? %>
-                <p class="text-left">
-                    <%= @user.introduction %>
-                </p>
-            <% end %>
-            <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2" } %>
-        </div>
+  <% else %>
+    <div class="profile-container">
+      <%= image_tag 'gray-image.jpeg', class: 'icon img-fluid profile-image' %>
+      <h3 class="mt-2 text-center"><%= @user.name %></h3>
+    </div>
+  <% end %>
+  
+    </div>
+    <div class="col-md-8" style="padding-left: 100px;">
+      <div class="text-md-left" style="margin-bottom: 80px;"> <!-- 80pxのマージンを追加 -->
+      <h1 style="color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
+       <span style="border-bottom: 1px solid; width: 240px; display: inline-block; margin-bottom: 16px;">自己紹介</span>
+      </h1>
+        <% if @user.introduction.present? %>
+          <p class="text-left">
+            <%= @user.introduction %>
+          </p>
+        <% end %>
+        <%= button_to "自己紹介を編集する", { controller: 'users', action: 'edit' }, { method: :get, class: "btn btn-primary mt-2", style: "width: 242px;" } %>
+      </div>
     </div>
     <!-- プロフィール終了 -->
+  </div>
 </div>
+
 
 
 
   <!-- 学習チャート -->
   <div class="row mt-3">
   <div class="col-md-12 text-center">
-    <h1 class="text-center underline">学習チャート</h1>
+  <h1 class="text-center" style="color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 700; line-height: normal;">
+  <span style="border-bottom: 1px solid; width: 400px; display: inline-block; margin-bottom: 16px;">学習チャート</span>
+  </h1>
     <div class="text-center">
-      <%= link_to "編集する", user_categories_path(@user), method: :get, class: "btn btn-primary mt-3" %>
+    <%= link_to "編集する", user_categories_path(@user), method: :get, class: "btn btn-primary mt-3", style: "margin-bottom: 80px;" %>
     </div>
     <canvas id="myChart" class="mt-3 mb-3"></canvas>
   </div>

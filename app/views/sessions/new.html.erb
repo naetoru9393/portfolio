@@ -1,24 +1,25 @@
 <% provide(:title, "Log in") %>
-<h1 class="">ログイン</h1>
+<h1 class="login-heading">ログイン</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3 text-center">
     <%= form_with(url: login_path, scope: :session) do |f| %>
 
-      <div class="text-left">
+      <div class="text-left" style="width: 480px; margin-bottom: 48px; margin-left: 60px;">
         <%= f.label :メールアドレス, class: 'fill' %>
         <%= f.email_field :email, class: 'underlined-field' %>
       </div>
 
-      <div class="text-left">
+      <div class="text-left" style="width: 480px; margin-bottom: 48px; margin-left: 60px;">
         <%= f.label :パスワード, class: 'fill' %>
         <%= f.password_field :password, class: 'underlined-field' %>
       </div>
 
-      <%= f.submit "ログインする", class: "btn btn-primary mx-auto" %>
+      <%= f.submit "ログインする", class: "btn btn-primary mx-auto", style: "width: 270px; height: 50px; padding: 16px 80px;" %>
     <% end %>
 
-    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get, class: "btn btn-secondary mx-auto mt-3"} %>
+    <%= button_to "新規登録する", {controller: 'users', action: 'new'}, {method: :get, class: "btn btn-secondary mx-auto mt-3", style: "width: 270px; height: 50px; padding: 16px 80px;"} %>
+
 
     <% if @user && @user.errors.any? %>
       <div id="error_explanation">

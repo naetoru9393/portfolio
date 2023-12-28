@@ -1,18 +1,21 @@
 <% provide(:title, 'Edit') %>
-<h1>自己紹介を編集する</h1>
+<h1 style="color: rgba(0, 0, 0, 0.75); text-align: center; font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 400; line-height: 133.4%; margin-bottom: 80px;">自己紹介を編集する</h1>
+
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user) do |f| %>
 
       <%= f.label :introduction, '自己紹介文', class: 'fill' %>
-      <%= f.text_area :introduction, class: 'underlined-field' %>
+      <%= f.text_area :introduction, class: 'underlined-field'%>
       
-      <% if @user.errors[:introduction].any? %>
-        <div class="error">
-          <%= @user.errors[:introduction].join(', ') %>
-        </div>
-      <% end %>
+      <% if @user.errors[:introduction].any? || !@user.errors.key?(:introduction) %>
+  <div class="error" style="margin-bottom: 48px;">
+    <%= @user.errors[:introduction].join(', ') %>
+  </div>
+<% end %>
+
+
 
       <%= f.label :アバター画像, {class: 'fill'} %>
     
@@ -22,7 +25,7 @@
       </div>
 
       <div class="text-center mt-3">
-        <%= f.submit "自己紹介を確定する", class: "btn btn-primary" %>
+      <%= f.submit "自己紹介を確定する", class: "btn btn-primary", style: "margin-top: 48px; width: 320px; height: 50px;" %>
       </div>
     <% end %>
   </div>

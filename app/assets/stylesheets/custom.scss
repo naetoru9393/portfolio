@@ -266,13 +266,14 @@ input, textarea, select, .uneditable-input {
   }
 
   .custom-file-label {
-    background-color: #CCCCCC; /* グレーの背景色 */
-    color: #000000; /* 黒の文字色 */
+    background: rgba(0, 0, 0, 0.10);
+    color: #000000BF; /* 黒の文字色 */
     font-weight: lighter;
     text-align: center;
-    width: 40%;
-    padding: 10px;
-    border-radius: 5px;
+    width: 202px;
+    height: 30px;
+    padding: 6px 24px;
+    border-radius: 4px;
     cursor: pointer;
   }
 
@@ -491,4 +492,39 @@ select {
   border-right: none;
   border-left: none;
   border-top: none;
+}
+
+#error_explanation {
+  margin: 20px auto; /* 上下に余白を設定して中央に寄せる */
+  max-width: 400px; /* 必要に応じて最大幅を指定 */
+  text-align: center; /* テキストを中央寄せする */
+  padding: 10px; /* 内側の余白 */
+  border-radius: 5px; /* 角を丸める */
+}
+
+#error_explanation ul {
+  list-style: none; /* リストスタイルを削除 */
+  padding: 0; /* リストの内側の余白を削除 */
+}
+
+#error_explanation li {
+  margin-left: 0; /* リストアイテムの左の余白を削除 */
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.login-heading {
+  color: rgba(0, 0, 0, 0.75);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 133.4%;
 }

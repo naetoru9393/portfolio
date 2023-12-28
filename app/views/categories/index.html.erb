@@ -2,10 +2,9 @@
 
 <div class="custom-select">
   <select class="number" id="number" onchange="navigateToSelectedMonth()">
-    <option value="<%= @month %>"><%= "#{@month}月" %></option>
-    <option value="<%= @this_month %>"><%= "#{@this_month}月" %></option>
-    <option value="<%= @this_month - 1 %>"><%= "#{@this_month - 1}月" %></option>
-    <option value="<%= @this_month - 2 %>"><%= "#{@this_month - 2}月" %></option>
+    <option value="<%= @this_month %>" <%= 'selected' if params[:month].to_i == @this_month %>><%= "#{@this_month}月" %></option>
+    <option value="<%= @this_month - 1 %>" <%= 'selected' if params[:month].to_i == @this_month - 1 %>><%= "#{@this_month - 1}月" %></option>
+    <option value="<%= @this_month - 2 %>" <%= 'selected' if params[:month].to_i == @this_month - 2 %>><%= "#{@this_month - 2}月" %></option>
   </select>
 </div>
 
@@ -73,7 +72,6 @@
   <%= render partial: 'infra_content', locals: { infrastructures: @infrastructures } %>
 </table>
 </div>
-
 
 <script>
   function navigateToSelectedMonth() {
