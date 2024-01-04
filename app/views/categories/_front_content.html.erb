@@ -1,24 +1,24 @@
 <div style="padding: 10px; margin-bottom: 20px; overflow-y: auto; max-height: 218px">
   <!-- 項目名と学習時間のヘッダー部分 -->
-  <table style="width: 100%; border-collapse: collapse; border: 2px solid lightgray;">
+  <table style="width: 100%; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
     <thead>
       <tr style="border-bottom: 1px solid lightgray;">
-        <th style="padding: 10px; width: 19%; padding-left: 35px; border-left: 1px solid lightgray; border-top: 1px solid lightgray;">項目名</th>
-        <th style="padding: 10px; padding-left: 80px; border-top: 1px solid lightgray;">学習時間</th>
+      <th style="padding: 10px; width: 19%; padding-left: 35px; color: var(--text-primary, rgba(0, 0, 0, 0.87)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 14px; font-style: normal; font-weight: 500; line-height: 24px; letter-spacing: 0.15px;">項目名</th>
+      <th style="padding: 10px; padding-left: 80px; color: var(--text-primary, rgba(0, 0, 0, 0.87)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 14px; font-style: normal; font-weight: 500; line-height: 24px; letter-spacing: 0.15px;">学習時間</th>
         <th style="padding: 10px;"></th> <!-- 修正: フォームを含めるための空のセルを追加 -->
       </tr>
     </thead>
     <!-- データ部分 -->
     <tbody class="scrollable-tbody" style="overflow-y: auto; max-height: 300px;">
       <% frontends.each do |item| %>
-        <tr style="border-bottom: 1px solid lightgray; border-radius: 8px;">
+        <tr style="border-bottom: 1px solid lightgray;">
           <%= form_with(model: item) do |i| %>
-            <td style="padding: 10px; padding-left: 40px; border-radius: 8px;">
-              <%= item.item_name %>
+            <td style="padding: 10px; padding-left: 40px; ">
+            <span style="color: var(--text-primary, rgba(0, 0, 0, 0.87)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 14px; font-style: normal; font-weight: 400; line-height: 143%; letter-spacing: 0.15px;"><%= item.item_name %></span>
             </td>
             <td style="padding: 10px 0px; border-radius: 8px;">
               <div style="border: 1px solid lightgray; padding: 5px; display: inline-block; border-radius: 4px; margin-left: 80px; width: 160px;">
-                <%= i.number_field :study_time, autocomplete: "off" %>
+              <%= i.number_field :study_time, min: 0, autocomplete: "off", style: "color: #0000008A;" %>
               </div>
             </td>
             <td style="border-radius: 8px;">
@@ -30,7 +30,7 @@
               </div>
             </td>
           <% end %>
-          <td style="padding-right: 30px; padding-left: 40px; border-radius: 4px;">
+          <td style="padding-right: 30px; padding-left: 60px; border-radius: 4px;">
             <%= form_with(model: item, method: :delete, local: true) do |i| %>
               <%= i.submit "削除する", class: "destroy-modal", data: { item_name: item.item_name, item_id: item.id }, style: "color: white; background-color: #EE6969; padding: 5px; display: inline-block; width: 90px; border-radius: 4px;", onclick: "confirmDelete('#{item.item_name}', #{item.id})" %>
             <% end %>          
@@ -49,7 +49,7 @@
 </div>
 
 <script>
- function showModal(content) {
+  function showModal(content) {
     var modal = document.getElementById('myModal');
     var modalContent = document.getElementById('modalContent');
     modalContent.innerHTML = content;

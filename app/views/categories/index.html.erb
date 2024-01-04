@@ -1,16 +1,17 @@
 <% provide(:title, 'Skill') %>
 
-<div class="custom-select">
-  <select class="number" id="number" onchange="navigateToSelectedMonth()">
-    <option value="<%= @this_month %>" <%= 'selected' if params[:month].to_i == @this_month %>><%= "#{@this_month}月" %></option>
-    <option value="<%= @this_month - 1 %>" <%= 'selected' if params[:month].to_i == @this_month - 1 %>><%= "#{@this_month - 1}月" %></option>
-    <option value="<%= @this_month - 2 %>" <%= 'selected' if params[:month].to_i == @this_month - 2 %>><%= "#{@this_month - 2}月" %></option>
+<div class="custom-select" style="margin-top: 20px;">
+  <select class="number" id="number" onchange="navigateToSelectedMonth()" style="color: #000; font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;">
+    <option value="<%= @this_month %>" <%= 'selected' if params[:month].to_i == @this_month %> style="color: #000; font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal; "><%= "#{@this_month}月" %></option>
+    <option value="<%= @last_month %>" <%= 'selected' if params[:month].to_i == @last_month %> style="color: #000; font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal; "><%= "#{@last_month}月" %></option>
+    <option value="<%= @months_ago %>" <%= 'selected' if params[:month].to_i == @months_ago %> style="color: #000; font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal; "><%= "#{@months_ago}月" %></option>
   </select>
 </div>
 
+
 <!-- バックエンド -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px; margin-top: 35px;">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 30px 40px 10px 40px; margin-bottom: 20px; margin-top: 35px; width: 960px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; height: 70px">
  
   <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
     <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">バックエンド</span>
@@ -33,8 +34,8 @@
 
 
 <!-- フロントエンド -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px;">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 30px 40px 10px 40px; margin-bottom: 20px; margin-top: 35px; width: 960px;">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; height: 70px">
     
   <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
     <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">フロントエンド</span>
@@ -56,8 +57,8 @@
 
 
 <!-- インフラ -->
-<div style="border: 1px solid #ccc; border-radius: 10px; padding: 40px; margin-bottom: 20px;">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<div style="border: 1px solid #ccc; border-radius: 10px; padding: 30px 40px 10px 40px; margin-bottom: 20px; margin-top: 35px; width: 960px;">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; height: 70px">
     
   <h1 style="margin-bottom: 10px; margin-left: 10px; color: rgba(0, 0, 0, 0.75); font-family: Roboto; font-size: 24px; font-style: normal; font-weight: 700; line-height: normal;" class="text-left mb-4">
     <span style="border-bottom: 1px solid; width: 240px; display: inline-block; padding-bottom: 16px;">インフラ</span>

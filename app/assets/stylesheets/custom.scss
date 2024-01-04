@@ -38,7 +38,7 @@ body {
 /* .containerにbox-sizingを設定 */
 .container {
   width: 960px;
-  padding-top: 80px; /* ナビゲーションバーの高さに合わせて適切な値に変更 */
+  padding-top: 60px; /* ナビゲーションバーの高さに合わせて適切な値に変更 */
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -368,7 +368,7 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 100%;
-    padding: 8px 32px 8px 8px;
+    padding: 8px 25px 8px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
@@ -381,7 +381,7 @@ select {
     color: black;
     position: absolute;
     top: 50%;
-    right: 8px;
+    right: 10px;
     transform: translateY(-50%);
   }
 
@@ -453,32 +453,43 @@ select {
   border-color: #fff; /* ホバー時のボーダーの色 */
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 30%;
-  left: 26%;
-  padding: 20px;
-  width: 50%;
-}
-
 .modal-content {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60%;
-  width: 90%;
+  width: 640px; 
+  height: 240px;
+  border-radius: 0;
+
+  p{
+    margin: 40px;
+  }
 }
 
+#myModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* 透明度を調整するには、アルファ（0.5）を変更してください */
+}
+
+
 .modal-close-btn {
-  padding: 10px 20px; /* パディングを設定 */
+  padding: 15px 20px; /* パディングを設定 */
   background-color: #1B5678; /* ボタンの背景色 */
   color: #fff; /* ボタンのテキスト色 */
   border: none; /* ボーダーをなくす */
   border-radius: 5px; /* ボーダーの角を丸くする */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+  width: 190px; 
+  height: 50px;
 }
 
 /* ボタンにホバー時のスタイルを追加したい場合 */
@@ -535,6 +546,7 @@ select {
   font-style: normal;
   font-weight: 400;
   line-height: 133.4%;
+  margin: 80px;
 }
 
 .alert {

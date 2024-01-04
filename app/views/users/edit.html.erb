@@ -1,5 +1,5 @@
 <% provide(:title, 'Edit') %>
-<h1 style="color: rgba(0, 0, 0, 0.75); text-align: center; font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 400; line-height: 133.4%; margin-bottom: 80px;">自己紹介を編集する</h1>
+<h1 style="color: rgba(0, 0, 0, 0.75); text-align: center; font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 36px; font-style: normal; font-weight: 400; line-height: 133.4%; margin-top: 60px; margin-bottom: 80px;">自己紹介を編集する</h1>
 
 
 <div class="row">
@@ -14,8 +14,6 @@
     <%= @user.errors[:introduction].join(', ') %>
   </div>
 <% end %>
-
-
 
       <%= f.label :アバター画像, {class: 'fill'} %>
     

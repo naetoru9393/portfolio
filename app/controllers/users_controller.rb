@@ -3,20 +3,23 @@ class UsersController < ApplicationController
     before_action :correct_user,   only: [:edit, :update]
 
     def show
+
       @user = User.find(params[:id])
       @month = Date.today.month
+      @last_month = Date.today.months_ago(1).month
+      @months_ago = Date.today.months_ago(2).month
       @user_item = Item.where(user_id: @user.id)
       @back_this_manth = @user_item.where(category_id:1).where(month:@month).sum(:study_time)
-      @back_last_manth = @user_item.where(category_id:1).where(month:@month-1).sum(:study_time)
-      @back_two_manths_ago = @user_item.where(category_id:1).where(month:@month-2).sum(:study_time)
+      @back_last_manth = @user_item.where(category_id:1).where(month:@last_month).sum(:study_time)
+      @back_two_manths_ago = @user_item.where(category_id:1).where(month:@months_ago).sum(:study_time)
 
       @front_this_manth = @user_item.where(category_id:2).where(month:@month).sum(:study_time)
-      @front_last_manth = @user_item.where(category_id:2).where(month:@month-1).sum(:study_time)
-      @front_two_manths_ago = @user_item.where(category_id:2).where(month:@month-2).sum(:study_time)
+      @front_last_manth = @user_item.where(category_id:2).where(month:@last_month).sum(:study_time)
+      @front_two_manths_ago = @user_item.where(category_id:2).where(month:@months_ago).sum(:study_time)
 
       @infra_this_manth = @user_item.where(category_id:3).where(month:@month).sum(:study_time)
-      @infra_last_manth = @user_item.where(category_id:3).where(month:@month-1).sum(:study_time)
-      @infra_two_manths_ago = @user_item.where(category_id:3).where(month:@month-2).sum(:study_time)
+      @infra_last_manth = @user_item.where(category_id:3).where(month:@last_month).sum(:study_time)
+      @infra_two_manths_ago = @user_item.where(category_id:3).where(month:@months_ago).sum(:study_time)
     end
   
     def new
@@ -41,7 +44,6 @@ class UsersController < ApplicationController
       def update
         @user = User.find(params[:id])
         if @user.update(user_params)
-          flash[:success] = "Profile updated"
           redirect_to @user
         else
           render 'edit', status: :unprocessable_entity

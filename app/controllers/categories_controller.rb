@@ -4,6 +4,8 @@ class CategoriesController < ApplicationController
 
   def index
     @this_month = Date.today.month
+    @last_month = Date.today.months_ago(1).month
+    @months_ago = Date.today.months_ago(2).month
     @user = current_user
     @category = Category.new
     @items = Item.where(user_id: @user)

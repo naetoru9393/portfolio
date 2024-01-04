@@ -1,11 +1,12 @@
 <% provide(:title, 'Skill') %>
 <h1 style="margin-top: 60px; margin-bottom: 80px;"><%= @name %>に項目を追加</h1>
 
+
 <div class="row">
   <div class="col-md-6 col-md-offset-2"> <!-- col-md-offset-2に変更 -->
     <%= form_with(model: @item, html: { id: 'item-form' }) do |f| %>
       <div class="form-group">
-        <%= f.label :項目名 %>
+      <%= f.label :項目名, style: "color: var(--text-secondary, rgba(0, 0, 0, 0.54)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 12px; font-style: normal; font-weight: 400; line-height: 12px; letter-spacing: 0.15px;" %>
         <%= f.text_field :item_name, class: 'no-border', id: 'item-name-input', style: 'width: 480px; margin-bottom: 48px;'  %>
         <%= f.hidden_field :category_id, value:  @category_id %>
         <%= f.hidden_field :user_id, value:  @current_user %>
@@ -13,11 +14,11 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :学習時間 %>
+      <%= f.label :学習時間, style: "color: var(--text-secondary, rgba(0, 0, 0, 0.54)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 12px; font-style: normal; font-weight: 400; line-height: 12px; letter-spacing: 0.15px;" %>
         <div class="input-group">
-          <%= f.number_field :study_time, autocomplete: "off", style: 'width: 480px; border: none; border-bottom: 1px solid #ccc;' %>
+        <%= f.number_field :study_time, min: 1, autocomplete: "off", style: 'width: 480px; border: none; border-bottom: 1px solid #ccc;' %>
         </div>
-        <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill', style: "; margin-bottom: 48px;" %>
+        <%= f.label :study_time, '分単位で入力お願いしてください', class: 'fill', style: "margin-bottom: 48px; color: var(--text-secondary, rgba(0, 0, 0, 0.54)); font-feature-settings: 'clig' off, 'liga' off; font-family: Roboto; font-size: 12px; font-style: normal; font-weight: 400; line-height: 20px; letter-spacing: 0.4px;" %>
       </div>
 
         <%= f.submit "追加する", class: "btn btn-primary", id: "open", style: "margin-left: 150px;" %>
@@ -26,10 +27,11 @@
 </div>
 
 <div id="myModal" class="modal">
-  <div class="modal-content">
-    <p id="modalContent"></p>
-    <a href="#" class="modal-close-btn" onclick="closeModal()">編集ページに戻る</a>
-  </div>
+  <div class="modal-content" style="margin: 300px 300px 300px 400px;">
+  <p id="modalContent"></p>
+  <a href="#" class="modal-close-btn" onclick="closeModal()">編集ページに戻る</a>
+</div>
+
 </div>
 
 <script>
@@ -47,23 +49,44 @@
     modal.style.display = 'none';
   }
 
-  // ボタンクリック時にモーダルを表示
-  document.getElementById('open').addEventListener('click', function() {
+  document.getElementById('open').addEventListener('click', function(event) {
+    // デフォルトのフォームサブミットを防止
+    event.preventDefault();
+
     var itemName = document.getElementById('item-name-input').value;
     var studyTime = document.getElementById('item-form').elements['item[study_time]'].value;
     var name = "<%= @name %>";
-    var content;
-  
-    // エラーメッセージが存在する場合はそれを表示
-    <% if flash[:error].present? %>
-    content = "保存に失敗しました: [<%= flash[:error] %>]";
-  <% else %>
-    content = name + "に" + itemName + "を<br>" + studyTime + "分で追加しました！";
-  <% end %>
-  
-    openModal(content);
+
+    // 追加：アイテムの重複検出
+    fetch('/items?id=<%= @category_id %>&month=<%= @month %>', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= form_authenticity_token %>'
+      },
+      body: JSON.stringify({ item: { item_name: itemName, category_id: <%= @category_id %>, user_id: <%= @current_user %>, month: <%= @month %>, study_time: studyTime } })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.duplicate_detected) {
+        // 重複が検出された場合
+        var contentDuplicate = "アイテムが既に存在します。";
+        openModal(contentDuplicate);
+      } else if (data.error) {
+        // サーバーサイドでエラーが発生した場合
+        var contentError = "アイテムが既に存在します。";
+        openModal(contentError);
+      } else {
+        // 重複もエラーもない場合
+        var content = name + "に" + itemName + "を<br>" + studyTime + "分で追加しました！";
+        openModal(content);
+      }
+    })
+    .catch(error => {
+      // ネットワークエラーなどの場合
+      console.error('Fetch error:', error);
+    });
   });
-  
 
   // モーダルが閉じられた時に前のURLに戻る
   document.querySelector('.modal-close-btn').addEventListener('click', function() {
@@ -71,4 +94,30 @@
     var previousUrl = document.referrer;
     window.location.href = previousUrl;
   });
+  
+  // ページ読み込み時と入力変更時にボタンの状態を確認して無効化する
+  document.addEventListener('DOMContentLoaded', function () {
+    checkButtonState();
+  });
+
+  document.getElementById('item-name-input').addEventListener('input', function () {
+    checkButtonState();
+  });
+
+  document.getElementById('item-form').elements['item[study_time]'].addEventListener('input', function () {
+    checkButtonState();
+  });
+
+  function checkButtonState() {
+    var addButton = document.getElementById('open');
+    var itemName = document.getElementById('item-name-input').value;
+    var studyTime = document.getElementById('item-form').elements['item[study_time]'].value;
+
+    if (itemName.trim() === '' || studyTime.trim() === '') {
+      addButton.disabled = true;
+    } else {
+      addButton.disabled = false;
+    }
+  }
+
 </script>

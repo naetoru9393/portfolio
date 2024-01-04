@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: :create
 
   def new
     @category_id = params[:id]
@@ -18,17 +19,33 @@ class ItemsController < ApplicationController
     session[:previous_url] = request.referer
   end
 
+    #def create
+    #  @category_id = params[:id]
+    #  @month = params[:month]
+    #  @item = Item.new(item_params)
+    #  @item.save
+    #end
 
     def create
-      @category_id = params[:id]
-      @month = params[:month]
-      @item = Item.new(item_params)
+      # ... 他の処理 ...
+      @category_id = params[:item][:category_id]
+      @month = params[:item][:month]
   
-      if @item.save
-        
-      else
-        session[:previous_url] = request.referer
-        flash[:error] = "その項目はすでに存在します"
+      # トランザクションを開始
+      ActiveRecord::Base.transaction do
+        # アイテムの重複検出
+        if Item.exists?(item_params)
+          # 重複が検出された場合の処理
+          render json: { duplicate_detected: true }
+        else
+          # 重複が検出されなかった場合の処理
+          @item = Item.new(item_params)
+          if @item.save
+            render json: { duplicate_detected: false, name: current_user.name }
+          else
+            render json: { error: @item.errors.full_messages.join(', ') }, status: :unprocessable_entity
+          end
+        end
       end
     end
   
@@ -59,3 +76,4 @@ class ItemsController < ApplicationController
     end
 
   end
+  
