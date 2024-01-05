@@ -18,7 +18,8 @@
             </td>
             <td style="padding: 10px 0px; border-radius: 8px;">
               <div style="border: 1px solid lightgray; padding: 5px; display: inline-block; border-radius: 4px; margin-left: 80px; width: 160px;">
-              <%= i.number_field :study_time, min: 0, autocomplete: "off", style: "color: #0000008A;" %>
+              <%= i.number_field :study_time, min: 0, autocomplete: "off", style: "color: #0000008A;", oninput: "validateNumberInput(this);" %>
+
               </div>
             </td>
             <td style="border-radius: 8px;">
@@ -69,5 +70,9 @@
 
   function confirmDelete(itemName, itemId) {
     showModal(itemName + 'を削除しました！');
+  }
+
+  function validateNumberInput(input) {
+    input.value = input.value.replace(/[^0-9]/g, ''); // 数字以外を削除
   }
 </script>
