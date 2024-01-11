@@ -19,13 +19,6 @@ class ItemsController < ApplicationController
     session[:previous_url] = request.referer
   end
 
-    #def create
-    #  @category_id = params[:id]
-    #  @month = params[:month]
-    #  @item = Item.new(item_params)
-    #  @item.save
-    #end
-
     def create
       # ... 他の処理 ...
       @category_id = params[:item][:category_id]
@@ -48,12 +41,19 @@ class ItemsController < ApplicationController
         end
       end
     end
-  
-  
-      def update
-        @item = Item.find(params[:id])
-        @item.update(item_params)
+    
+    def update
+      @item = Item.find(params[:id])
+      if @item.update(item_params)
+        # 成功時の処理が必要であればここで行います
+      else
+        @item.study_time = 0
+        @item.save
       end
+      
+    end
+    
+    
 
       def destroy
         @item = Item.find(params[:id])

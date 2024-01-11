@@ -18,7 +18,8 @@
             </td>
             <td style="padding: 10px 0px; border-radius: 8px;">
               <div style="border: 1px solid lightgray; padding: 5px; display: inline-block; border-radius: 4px; margin-left: 80px; width: 160px;">
-              <%= i.number_field :study_time, min: 0, autocomplete: "off", style: "color: #0000008A;", oninput: "validateNumberInput(this);" %>
+             
+              <%= i.number_field :study_time, min: 0, autocomplete: "off", style: "color: #0000008A;", oninput: "validateNumberInput(this);", id: "studyTimeInput_#{item.id}" %>
 
               </div>
             </td>
@@ -28,6 +29,7 @@
               </div>
               <div style="border: 1px solid #1B5678; padding: 5px; display: inline-block; border-radius: 4px; width: 160px;">
                 <%= i.submit "学習時間を保存する", class: "open-modal", style: "color: #1B5678;", onclick: "handleSave('#{item.item_name}')", data: { disable_with: "処理中..." } %>
+                
               </div>
             </td>
           <% end %>
@@ -56,10 +58,9 @@
     modalContent.innerHTML = content;
     modal.style.display = 'flex';
   }
-
+  
   function handleSave(itemName) {
-    showModal(itemName + 'の学習時間を保存しました！<br><br>');
-    // 保存の実際の処理を追加する
+  var studyTimeInput = document.getElementById('studyTimeInput_' + itemName);
   }
 
   function closeModal() {
@@ -75,4 +76,5 @@
   function validateNumberInput(input) {
     input.value = input.value.replace(/[^0-9]/g, ''); // 数字以外を削除
   }
+  
 </script>
